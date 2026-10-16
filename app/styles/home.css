@@ -280,52 +280,28 @@
   }
 }
 
-.pm-header__sound,
-.pm-menu__sound {
+/* In the pill the switch is just its four bars; the name "Sound" stays for screen readers. */
+.pm-pill__sound {
+  justify-content: center;
+  width: 2.75rem;
+  padding: 0;
   border-color: transparent;
   background: none;
 }
 
-/* Phones: the bar keeps logo, CTA and Menu; the sound switch moves into the menu's own bar. */
-.pm-menu__sound {
-  margin-inline: auto var(--pm-space-4);
+.pm-pill__sound:hover {
+  border-color: transparent;
+  background: rgb(255 255 255 / 0.08);
 }
 
-@media (max-width: 479px) {
-  .pm-header__sound {
-    display: none;
-  }
-}
-
-@media (min-width: 480px) {
-  .pm-menu__sound {
-    display: none;
-  }
-}
-
-@media (max-width: 639px) {
-  .pm-header__sound .pm-sound__label,
-  .pm-header__sound .pm-sound__state {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-}
-
-/* Clear header over the home hero. */
-.pm-header {
-  transition:
-    background-color var(--pm-dur-short) linear,
-    border-color var(--pm-dur-short) linear;
-}
-
-.pm-header[data-clear] {
-  border-top-color: transparent;
-  background-color: transparent;
-  background-image: linear-gradient(transparent, rgb(4 10 23 / 0.6));
+.pm-pill__sound .pm-sound__label,
+.pm-pill__sound .pm-sound__state {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* ---------- Footage chapters ---------- */

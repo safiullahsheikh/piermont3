@@ -9,16 +9,7 @@ import FlowingMenu from "../vendor/react-bits/FlowingMenu";
 import { Arrow } from "./Arrow";
 import { SoundToggle } from "./SoundToggle";
 
-/** Inline desktop navigation. */
-const PRIMARY = [
-  { label: "Home", href: "/" },
-  { label: "Solutions", href: "/solutions" },
-  { label: "Work", href: "/case-studies" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-] as const;
-
-/** Full menu: every top-level page. The main menu on mobile. Images show in the flowing band on hover. */
+/** Full menu: every top-level page. Images show in the flowing band on hover. */
 const MENU = [
   { label: "Home", href: "/", image: "/media/pier-lamps.webp" },
   { label: "Solutions", href: "/solutions", image: "/footage/reef-l.webp" },
@@ -70,6 +61,17 @@ function Logo({ onClick }: { onClick?: () => void }) {
   );
 }
 
+/** Three lines; as `x` the outer two cross and the middle one fades. */
+function Burger({ x = false }: { x?: boolean }) {
+  return (
+    <span className={x ? "pm-burger is-x" : "pm-burger"} aria-hidden="true">
+      <i />
+      <i />
+      <i />
+    </span>
+  );
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
@@ -78,18 +80,6 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   // Each opening mounts a fresh menu so its intro plays; it stays mounted while the curtain closes.
   const [opened, setOpened] = useState(0);
-  // Over the home hero the bottom bar is clear so the footage runs edge to edge.
-  const [clear, setClear] = useState(true);
-  const home = pathname === "/";
-
-  useEffect(() => {
-    if (!home) return;
-    const update = () => setClear(window.scrollY < window.innerHeight * 0.6);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, [home]);
-
   const openMenu = () => {
     menuRef.current?.showModal();
     closeRef.current?.focus();
@@ -106,42 +96,21 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="pm-header" data-clear={(home && clear) || undefined}>
+      {/* Floating pill, lower middle: logo, sound, menu. */}
+      <header className="pm-header pm-pill">
         <Logo />
-        <nav className="pm-header__nav" aria-label="Primary">
-          <ul>
-            {PRIMARY.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="pm-link"
-                  aria-current={
-                    isCurrent(pathname, item.href) ? "page" : undefined
-                  }
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="pm-header__actions">
-          <SoundToggle className="pm-header__sound" />
-          <Link href="/contact" className="pm-button pm-header__cta">
-            Start a project
-            <Arrow />
-          </Link>
-          <button
-            type="button"
-            className="pm-header__toggle"
-            aria-haspopup="dialog"
-            aria-expanded={open}
-            aria-controls="pm-menu"
-            onClick={openMenu}
-          >
-            Menu
-          </button>
-        </div>
+        <SoundToggle className="pm-pill__sound" />
+        <button
+          type="button"
+          className="pm-header__toggle"
+          aria-label="Menu"
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-controls="pm-menu"
+          onClick={openMenu}
+        >
+          <Burger />
+        </button>
       </header>
 
       <dialog
@@ -192,16 +161,18 @@ export function SiteHeader() {
             {PHONE.display}
           </a>
         </div>
-        <div className="pm-menu__bar">
+        {/* The same pill, in the same place, so it stays put while the menu rises behind it. */}
+        <div className="pm-pill">
           <Logo onClick={closeMenu} />
-          <SoundToggle className="pm-menu__sound" />
+          <SoundToggle className="pm-pill__sound" />
           <button
             ref={closeRef}
             type="button"
             className="pm-header__toggle"
+            aria-label="Close menu"
             onClick={closeMenu}
           >
-            Close
+            <Burger x />
           </button>
         </div>
       </dialog>

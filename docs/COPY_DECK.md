@@ -26,3 +26,4 @@ Proposed copy ships to the preview branch and is approved at the phase gate. Tes
 | `/thank-you` | (no page) | "Thank you", then the production success message "Thanks, we got your request and will be in touch soon." | Reuses production wording | 1D | Proposed |
 | Cookie banner | Production text | Same text plus a "Privacy policy" link | Links the new page | 1D | Proposed |
 | Footer | (no legal links) | "Privacy policy", "Terms of use" | Links the new pages | 1D | Proposed |
+| Navigation | Bar with Home, Solutions, Work, About, Contact, "Start a project" and "Menu" | Pill with logo, sound and a three-line button named "Menu" ("Close menu" when open) | Your instruction, 2026-10-16 | 1D | Proposed |

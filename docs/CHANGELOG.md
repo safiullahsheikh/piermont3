@@ -1,5 +1,11 @@
 # Changelog
 
+## Navigation pill and media fix (2026-10-16)
+
+- Navigation is now a floating pill at the lower middle of the screen: logo, sound switch (bars only) and a three-line menu button. The menu rises behind the pill, and the button turns into an X. The inline page links and the "Start a project" button left the bar on your instruction; "Start a project" stays in the hero and in the menu.
+- Footage and photos are stored as normal git files instead of Git LFS, so Vercel (and any host) gets the real files. The largest is 5.8 MB. Git LFS stays for source files (`assets-src/`, Blender, GLB, KTX2, EXR, HDR).
+- Removed the stale `pnpm-lock.yaml`; the project installs with npm.
+
 ## Phase 1C/1D (part 2) - Flowing menu, gallery pieces and launch checklist (2026-10-16)
 
 Built on your instructions of 2026-10-16 (flowing menu, dome gallery, ripple logo, accordion, drift wall, option wheel, ghost cursor, your photos, launch checklist).

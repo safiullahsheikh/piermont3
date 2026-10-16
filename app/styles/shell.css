@@ -118,7 +118,7 @@ a:hover > .pm-arrow {
 /* ---------- Header: a bar along the bottom edge ---------- */
 
 html {
-  /* Focused elements never sit under the bar. */
+  /* Focused elements never sit under the pill. */
   scroll-padding-bottom: calc(var(--pm-header-h) + var(--pm-space-4));
 }
 
@@ -126,116 +126,86 @@ body {
   padding-bottom: var(--pm-header-h);
 }
 
-.pm-header {
+/* Floating pill at the lower middle: logo, sound, menu. */
+.pm-pill {
   position: fixed;
-  inset: auto 0 0;
+  bottom: var(--pm-space-4);
+  left: 50%;
   z-index: var(--pm-z-header);
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
-  gap: var(--pm-space-5);
-  height: var(--pm-header-h);
-  padding-inline: var(--pm-gutter);
-  border-top: 1px solid var(--pm-hairline);
-  background: var(--pm-abyss);
+  gap: var(--pm-space-2);
+  height: 3.5rem;
+  padding: 0 var(--pm-space-2) 0 var(--pm-space-5);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: var(--pm-radius-pill);
+  background: rgb(6 14 32 / 0.62);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 12px 40px rgb(0 0 0 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
   color: var(--pm-foam);
   font-family: var(--pm-font-body);
+  translate: -50% 0;
 }
 
 .pm-logo {
   display: block;
-  justify-self: start;
+  margin-right: var(--pm-space-2);
   border-radius: var(--pm-radius-sm);
 }
 
 .pm-logo img {
   display: block;
   width: auto;
-  height: 2.6rem;
-}
-
-.pm-header__nav {
-  display: none;
-}
-
-.pm-header__nav ul {
-  display: flex;
-  gap: var(--pm-space-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pm-header__nav a {
-  font-size: 0.9375rem;
-  color: var(--pm-mist);
-}
-
-.pm-header__nav a:hover,
-.pm-header__nav a[aria-current="page"] {
-  color: var(--pm-foam);
-}
-
-.pm-header__actions {
-  display: flex;
-  align-items: center;
-  justify-self: end;
-  gap: var(--pm-space-5);
-}
-
-/* Sticky CTA: the bar sits on every screen, so the main action is always one tap away. */
-.pm-header__cta {
-  display: inline-flex;
-}
-
-@media (max-width: 639px) {
-  .pm-header {
-    gap: var(--pm-space-3);
-  }
-
-  .pm-header__actions {
-    gap: var(--pm-space-3);
-  }
-
-  .pm-logo img {
-    max-width: none;
-    height: 2rem;
-  }
-
-  .pm-header__cta {
-    padding-inline: var(--pm-space-3);
-    font-size: var(--pm-text-sm);
-    letter-spacing: 0.06em;
-  }
-
-  .pm-header__cta svg {
-    display: none;
-  }
+  max-width: none;
+  height: 2rem;
 }
 
 .pm-header__toggle {
-  min-height: 2.75rem;
-  padding: 0 var(--pm-space-1);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
   border: 0;
+  border-radius: 50%;
   background: none;
   color: var(--pm-foam);
-  font-family: var(--pm-font-display);
-  font-size: var(--pm-text-md);
-  font-weight: 500;
-  font-variant-caps: all-small-caps;
-  font-variation-settings: "opsz" 14;
-  letter-spacing: var(--pm-tracking-label);
   cursor: pointer;
+  transition: background-color var(--pm-dur-micro) linear;
 }
 
-@media (min-width: 1024px) {
-  .pm-header {
-    grid-template-columns: 1fr auto 1fr;
-  }
+.pm-header__toggle:hover {
+  background: rgb(255 255 255 / 0.08);
+}
 
-  .pm-header__nav {
-    display: block;
-  }
+.pm-burger {
+  display: grid;
+  gap: 5px;
+  width: 1.25rem;
+}
+
+.pm-burger i {
+  display: block;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transition:
+    transform var(--pm-dur-short) var(--pm-ease-out),
+    opacity var(--pm-dur-micro) linear;
+}
+
+.pm-burger.is-x i:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.pm-burger.is-x i:nth-child(2) {
+  opacity: 0;
+}
+
+.pm-burger.is-x i:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 
 /* ---------- Menu (native modal dialog) ---------- */
@@ -303,13 +273,6 @@ html:has(.pm-menu[open]) {
 .pm-menu__flow .flowing-menu__link:focus-visible {
   outline: var(--pm-focus-ring);
   outline-offset: -4px;
-}
-
-.pm-menu__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--pm-hairline);
 }
 
 .pm-menu__foot {
