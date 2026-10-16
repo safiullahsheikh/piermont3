@@ -5,7 +5,8 @@ import { StoriesSection } from "./components/StoriesSection";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 import { DepthGauge } from "./home/DepthGauge";
 import { HomeHero } from "./home/HomeHero";
-import { ProjectsDepth } from "./home/ProjectsDepth";
+import { Ghost } from "./home/Ghost";
+import { ProjectsAccordion } from "./home/ProjectsAccordion";
 import { ServicesReef } from "./home/ServicesReef";
 import { EMAIL, PHONE, SITE_URL, SOCIALS } from "./site";
 
@@ -54,7 +55,7 @@ export default function Home() {
       />
       <main id="main" className="pm-home">
         <HomeHero />
-        <ProjectsDepth />
+        <ProjectsAccordion />
         <ServicesReef />
         <div className="pm-home__proof">
           <TestimonialsSection />
@@ -64,6 +65,7 @@ export default function Home() {
           <ContactSection />
         </FootageSection>
         <DepthGauge />
+        <Ghost />
       </main>
     </>
   );

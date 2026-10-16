@@ -1,5 +1,25 @@
 # Changelog
 
+## Phase 1C/1D (part 2) - Flowing menu, gallery pieces and launch checklist (2026-10-16)
+
+Built on your instructions of 2026-10-16 (flowing menu, dome gallery, ripple logo, accordion, drift wall, option wheel, ghost cursor, your photos, launch checklist).
+
+- Navigation moved to a bar fixed at the bottom of the screen. The menu rises from it and is a React Bits FlowingMenu: eight rows, each with its own photo in the marquee, the current page marked. On phones the bar keeps the logo, "Start a project" and Menu (the sticky mobile CTA); the sound switch moves into the menu's bar.
+- Home projects: a large accordion of 10 of the 25 projects over the diver footage (wide panels on desktop, stacked on phones). Hover, focus or tap opens a panel.
+- Home services: a 3D option wheel of the six services, turned by scroll (1024 px and up, full motion). Arrow keys, Home, End and click work too. Elsewhere, the glass panels.
+- Brands: a drift wall of the client logos in three lanes, named for screen readers, slowing on hover. Static grid for reduced motion.
+- Ghost cursor (React Bits) on the home page for mouse users with full motion.
+- Loader logo ripples into place (SVG turbulence filter).
+- `/case-studies`: a dome gallery (React Bits) of all 25 projects, drag to look around. Skipped on the low tier.
+- Your three photos (pier lamps, pier at dusk, freediver) used in the menu.
+- New pages: `/privacy`, `/terms` (drafts, see B5), `/thank-you` (noindex; the contact form goes there after a successful send). Footer links to privacy and terms; the cookie banner links to privacy.
+- Google Analytics 4, loaded only after Accept, only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set (B12).
+- Web app manifest, route loading state, `:user-invalid` styling for form fields.
+
+**Verified:** build (62 pages), lint (0 errors; 1 pre-existing warning), type-check; screenshots at 375, 768 and 1440; wheel turns with scroll; menu opens with eight rows; dome renders; no console errors.
+
+**Known failures:** B11 only.
+
 ## Phase 1C/1D (part 1) - Footage homepage, loader and sea sound (2026-10-16)
 
 Built on your instruction of 2026-10-16 (your footage, mapped clip by clip). Phase 1B (Blender) is replaced by this footage route.

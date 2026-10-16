@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Third-party source kept as published (see app/vendor/react-bits/README.md).
+    "app/vendor/**",
   ]),
 ]);
 

@@ -131,6 +131,14 @@ export function SiteFooter() {
           <p>
             Copyright © {new Date().getFullYear()} Piermont Studios Limited - All Rights Reserved
           </p>
+          <p className="pm-footer__legal">
+            <Link href="/privacy" className="pm-link">
+              Privacy policy
+            </Link>
+            <Link href="/terms" className="pm-link">
+              Terms of use
+            </Link>
+          </p>
           <p className="pm-footer__socials">
             <span>Socials:</span>
             {SOCIALS.map((item) => (

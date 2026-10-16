@@ -6,6 +6,7 @@ import {
   useState,
   type FormEvent,
 } from "react";
+import { useRouter } from "next/navigation";
 import { LazyVideo } from "./LazyVideo";
 
 const SERVICE_OPTIONS = [
@@ -47,6 +48,7 @@ export function ContactSection({
   const Heading = headingLevel;
   const [services, setServices] = useState<string[]>([]);
   const [budget, setBudget] = useState<(typeof BUDGETS)[number] | null>(null);
+  const router = useRouter();
   const [turnstileToken, setTurnstileToken] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "ok" | "error">(
     "idle",
@@ -149,6 +151,7 @@ export function ContactSection({
         return;
       }
       setStatus("ok");
+      router.push("/thank-you");
       form.reset();
       setServices([]);
       setBudget(null);

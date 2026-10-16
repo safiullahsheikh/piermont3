@@ -72,6 +72,17 @@ export function Loader() {
           <source src="/footage/loader-l.mp4" type="video/mp4" />
         </video>
       </div>
+      {/* Water ripple on the logo: strong as it surfaces, calm by the time the words start. SMIL, so it runs before hydration. */}
+      <svg className="pm-loader__fx" aria-hidden="true" focusable="false">
+        <filter id="pm-ripple" x="-10%" y="-30%" width="120%" height="160%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.006 0.05" numOctaves="2" seed="4" result="water">
+            <animate attributeName="baseFrequency" dur="5s" values="0.006 0.05;0.008 0.065;0.006 0.05" repeatCount="indefinite" />
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="water" scale="2" xChannelSelector="R" yChannelSelector="G">
+            <animate attributeName="scale" values="46;2" dur="2.4s" begin="0s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.16 1 0.3 1" />
+          </feDisplacementMap>
+        </filter>
+      </svg>
       <div className="pm-loader__center">
         {/* eslint-disable-next-line @next/next/no-img-element -- must paint before hydration */}
         <img src="/FooterLogo.png" alt="Piermont Studios" className="pm-loader__logo" width={480} height={200} />

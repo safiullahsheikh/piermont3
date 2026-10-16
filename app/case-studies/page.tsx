@@ -6,6 +6,7 @@ import { Reveal } from "../motion/Reveal";
 import { pageMeta } from "../site";
 import { CATEGORIES, PROJECTS } from "../work/projects";
 import { CategoryNav } from "./CategoryNav";
+import { Dome } from "./Dome";
 
 export const metadata: Metadata = pageMeta({
   title: "Case Studies by Service",
@@ -24,6 +25,9 @@ export default function CaseStudiesPage() {
           {PROJECTS.length} projects across {CATEGORIES.length} services. Pick a discipline to see
           the brief, the process and the result for each client.
         </p>
+      </Reveal>
+      <Dome />
+      <Reveal className="pm-page__inner">
         <CategoryNav />
         <ol className="pm-index">
           {CATEGORIES.map((c, i) => {

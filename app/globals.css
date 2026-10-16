@@ -1869,6 +1869,13 @@ body {
   background: rgba(255, 255, 255, 0.04);
 }
 
+/* Errors show once a field has been touched or the form submitted, and outrank focus. */
+.contact-field input:user-invalid,
+.contact-field textarea:user-invalid {
+  border-color: #ff9b85;
+  box-shadow: 0 0 0 1px #ff9b85;
+}
+
 .contact-fieldset {
   margin: 1.15rem 0 0;
   padding: 0;

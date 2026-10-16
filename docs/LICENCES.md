@@ -28,6 +28,17 @@
 | Footage: pier, water, diver, coral reef, bubbles | `assets/` (sources, not committed), `public/footage/` (encodes) | Supplied by you; source pages not recorded | No (B14) |
 | Sea-wave sound | `app/sound/waves.ts` | Synthesised in the browser; no recording, no licence needed | Yes |
 
+## Added in Phase 1C/1D part 2
+
+| Item | Where | Licence | Verified |
+|---|---|---|---|
+| React Bits FlowingMenu, DomeGallery, GhostCursor (TS + CSS registry versions, lightly edited) | `app/vendor/react-bits/` | MIT + Commons Clause (use in sites allowed, resale of components not allowed); https://reactbits.dev | Yes |
+| @use-gesture/react 10.3.1 (DomeGallery dependency) | npm | MIT | Yes |
+| DriftWall | `app/components/DriftWall.tsx` | Own code, written from the documented behaviour of https://21st.dev/@Legacy/components/driftwall (MIT); no source copied, the source needs a 21st.dev API key | Yes |
+| Option Wheel | `app/home/ServicesReef.tsx` | Own code, written from the documented behaviour of https://21st.dev/@amitgajare2/components/option-wheel (MIT); no source copied | Yes |
+| Photos: pier lamps, pier at dusk, freediver | `public/media/` | Supplied by you; source pages not recorded | No (B14) |
+| Google Analytics 4 (only with your ID, only after Accept) | `app/components/Analytics.tsx` | Google Analytics terms | Yes |
+
 ## Planned (verified in Phase 0, added only when used)
 
 | Item | Licence | Source |

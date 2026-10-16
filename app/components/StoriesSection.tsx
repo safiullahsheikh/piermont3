@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { POSTS, postMedia, type Post } from "../blog/posts";
+import { DriftWall } from "./DriftWall";
 import { LazyVideo } from "./LazyVideo";
 
 const BRANDS = [
@@ -17,6 +18,10 @@ const BRANDS = [
   "reebok",
   "alo",
 ];
+
+const BRAND_NAMES: Record<string, string> = { on: "On", alo: "Alo", "louis-vuitton": "Louis Vuitton" };
+const brandName = (slug: string) =>
+  BRAND_NAMES[slug] ?? slug.replace(/(^|-)(\w)/g, (_, sep: string, c: string) => (sep ? " " : "") + c.toUpperCase());
 
 function PostMeta({ post }: { post: Post }) {
   return (
@@ -122,24 +127,15 @@ export function StoriesSection({ all = false }: { all?: boolean }) {
           <p className="blog-latest-label">
             Brands who are part of our success story
           </p>
-          <div className="stories-logos-marquee" aria-hidden="true">
-            <div className="stories-logos-track">
-              {[0, 1].map((k) => (
-                <div key={k} className="blog-logos-set">
-                  {BRANDS.map((name) => (
-                    <Image
-                      key={name}
-                      src={`/brands/${name}.png`}
-                      alt=""
-                      width={160}
-                      height={64}
-                      className="blog-logo"
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+          <DriftWall
+            label="Brands"
+            items={BRANDS.map((name) => ({
+              key: name,
+              node: (
+                <Image src={`/brands/${name}.png`} alt={brandName(name)} width={160} height={64} className="blog-logo" />
+              ),
+            }))}
+          />
         </div>
       </div>
     </section>

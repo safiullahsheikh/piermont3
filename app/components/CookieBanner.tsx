@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useSyncExternalStore } from "react";
 
 const KEY = "piermont-cookie-consent";
 const EVENT = "piermont-consent-change";
 
-function subscribe(onChange: () => void) {
+export function subscribeConsent(onChange: () => void) {
   window.addEventListener("storage", onChange);
   window.addEventListener(EVENT, onChange);
   return () => {
@@ -32,7 +33,7 @@ export function hasCookieConsent() {
 
 export function CookieBanner() {
   // "unset" on the server so nothing renders until we know the stored choice.
-  const consent = useSyncExternalStore(subscribe, readConsent, () => "unset");
+  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => "unset");
 
   if (consent !== "") return null;
 
@@ -54,7 +55,7 @@ export function CookieBanner() {
     >
       <p>
         We use cookies to improve your experience and understand how the site
-        is used.
+        is used. <Link href="/privacy">Privacy policy</Link>
       </p>
       <div className="pm-consent__actions">
         <button

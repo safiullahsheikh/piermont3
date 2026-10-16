@@ -14,6 +14,8 @@ const ROUTES = [
   { path: "/solutions", priority: 0.8 },
   { path: "/case-studies", priority: 0.8 },
   { path: "/blog", priority: 0.6 },
+  { path: "/privacy", priority: 0.3 },
+  { path: "/terms", priority: 0.3 },
   ...SOLUTIONS.map((s) => ({ path: `/solutions/${s.slug}`, priority: 0.8 })),
   ...CATEGORIES.map((c) => ({ path: `/case-studies/${c.slug}`, priority: 0.7 })),
   ...PROJECTS.map((p) => ({ path: projectHref(p), priority: 0.6 })),

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "./components/Analytics";
 import { CookieBanner } from "./components/CookieBanner";
 import { Loader, LOADER_SCRIPT } from "./components/Loader";
 import { SiteFooter } from "./components/SiteFooter";
@@ -149,6 +150,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <SiteFooter />
         <CookieBanner />
+        <Analytics />
         <MotionRoot />
       </body>
     </html>
