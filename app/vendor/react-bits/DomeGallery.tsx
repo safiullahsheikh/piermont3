@@ -4,12 +4,15 @@ import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
 
-type ImageItem = string | { src: string; alt?: string };
+// Piermont: an item can carry a video (played on hover and when opened) and its shape (width / height).
+type ImageItem = string | { src: string; alt?: string; video?: string; aspect?: number };
 
 type DomeGalleryProps = {
   images?: ImageItem[];
   fit?: number;
   fitBasis?: 'auto' | 'min' | 'max' | 'width' | 'height';
+  /** Piermont: degrees the gallery turns as the mouse crosses it edge to edge (0 = off). */
+  cursorSpin?: number;
   minRadius?: number;
   maxRadius?: number;
   padFactor?: number;
@@ -33,6 +36,8 @@ type ItemDef = {
   y: number;
   sizeX: number;
   sizeY: number;
+  video?: string;
+  aspect?: number;
 };
 
 const DEFAULT_IMAGES: ImageItem[] = [
@@ -107,9 +112,9 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
 
   const normalizedImages = pool.map(image => {
     if (typeof image === 'string') {
-      return { src: image, alt: '' };
+      return { src: image, alt: '', video: '', aspect: 0 };
     }
-    return { src: image.src || '', alt: image.alt || '' };
+    return { src: image.src || '', alt: image.alt || '', video: image.video || '', aspect: image.aspect || 0 };
   });
 
   const usedImages = Array.from({ length: totalSlots }, (_, i) => normalizedImages[i % normalizedImages.length]);
@@ -130,7 +135,9 @@ function buildItems(pool: ImageItem[], seg: number): ItemDef[] {
   return coords.map((c, i) => ({
     ...c,
     src: usedImages[i].src,
-    alt: usedImages[i].alt
+    alt: usedImages[i].alt,
+    video: usedImages[i].video,
+    aspect: usedImages[i].aspect
   }));
 }
 
@@ -145,6 +152,7 @@ export default function DomeGallery({
   images = DEFAULT_IMAGES,
   fit = 0.5,
   fitBasis = 'auto',
+  cursorSpin = 0,
   minRadius = 600,
   maxRadius = Infinity,
   padFactor = 0.25,
@@ -175,6 +183,7 @@ export default function DomeGallery({
   } | null>(null);
 
   const rotationRef = useRef({ x: 0, y: 0 });
+  const spinRef = useRef({ cur: 0, target: 0, raf: 0 });
   const startRotRef = useRef({ x: 0, y: 0 });
   const startPosRef = useRef<{ x: number; y: number } | null>(null);
   const draggingRef = useRef(false);
@@ -203,12 +212,37 @@ export default function DomeGallery({
   const applyTransform = (xDeg: number, yDeg: number) => {
     const el = sphereRef.current;
     if (el) {
-      // Piermont: --dg-spin (set by the page from scroll) adds to the dragged yaw.
-      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(calc(${yDeg}deg + var(--dg-spin, 0deg)))`;
+      // Piermont: the cursor's turn (spinRef) adds to the dragged yaw.
+      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg + spinRef.current.cur}deg)`;
     }
   };
 
   const lockedRadiusRef = useRef<number | null>(null);
+
+  // Piermont: the mouse's x across the gallery sets a target turn; the gallery eases towards it.
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main || !cursorSpin) return;
+    const s = spinRef.current;
+    const ease = () => {
+      s.cur += (s.target - s.cur) * 0.07;
+      if (Math.abs(s.target - s.cur) < 0.01) s.cur = s.target;
+      applyTransform(rotationRef.current.x, rotationRef.current.y);
+      s.raf = s.cur === s.target ? 0 : requestAnimationFrame(ease);
+    };
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || draggingRef.current || focusedElRef.current) return;
+      const r = main.getBoundingClientRect();
+      s.target = -((e.clientX - r.left) / r.width - 0.5) * cursorSpin;
+      if (!s.raf) s.raf = requestAnimationFrame(ease);
+    };
+    main.addEventListener('pointermove', onMove, { passive: true });
+    return () => {
+      main.removeEventListener('pointermove', onMove);
+      cancelAnimationFrame(s.raf);
+      s.raf = 0;
+    };
+  }, [cursorSpin]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const root = rootRef.current;
@@ -402,6 +436,17 @@ export default function DomeGallery({
     { target: mainRef, eventOptions: { passive: true } }
   );
 
+  // Piermont: a tile plays its video while the mouse is on it, so only one tile decodes at a time.
+  const playTile = (e: React.PointerEvent<HTMLElement>) => {
+    const el = e.currentTarget;
+    const src = el.parentElement?.dataset.video;
+    if (e.pointerType !== 'mouse' || !src || el.querySelector('video')) return;
+    const v = document.createElement('video');
+    Object.assign(v, { src, muted: true, loop: true, autoplay: true, playsInline: true, className: 'item__video' });
+    el.appendChild(v);
+  };
+  const stopTile = (e: React.PointerEvent<HTMLElement>) => e.currentTarget.querySelector('video')?.remove();
+
   const openItemFromElement = (el: HTMLElement) => {
     if (openingRef.current) return;
     openingRef.current = true;
@@ -419,7 +464,7 @@ export default function DomeGallery({
 
     const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments);
     const parentY = normalizeAngle(parentRot.rotateY);
-    const spin = parseFloat(getComputedStyle(sphereRef.current!).getPropertyValue('--dg-spin')) || 0;
+    const spin = spinRef.current.cur;
     const globalY = normalizeAngle(rotationRef.current.y + spin);
     let rotY = -(parentY + globalY) % 360;
     if (rotY < -180) rotY += 360;
@@ -474,6 +519,12 @@ export default function DomeGallery({
     const img = document.createElement('img');
     img.src = rawSrc;
     overlay.appendChild(img);
+    // Piermont: a project with a video plays it in the opened view.
+    if (parent.dataset.video) {
+      const v = document.createElement('video');
+      Object.assign(v, { src: parent.dataset.video, poster: rawSrc, muted: true, loop: true, autoplay: true, playsInline: true });
+      overlay.appendChild(v);
+    }
     viewerRef.current!.appendChild(overlay);
 
     const tx0 = tileR.left - frameR.left;
@@ -493,15 +544,18 @@ export default function DomeGallery({
       rootRef.current?.setAttribute('data-enlarging', 'true');
     }, 16);
 
-    const wantsResize = openedImageWidth || openedImageHeight;
+    // Piermont: open at the item's own shape (no crop), as large as the screen allows.
+    const aspect = getDataNumber(parent, 'aspect', 0);
+    const fitW = aspect ? Math.min(window.innerWidth * 0.86, window.innerHeight * 0.78 * aspect) : 0;
+    const wantsResize = aspect || openedImageWidth || openedImageHeight;
     if (wantsResize) {
       const onFirstEnd = (ev: TransitionEvent) => {
         if (ev.propertyName !== 'transform') return;
         overlay.removeEventListener('transitionend', onFirstEnd);
         const prevTransition = overlay.style.transition;
         overlay.style.transition = 'none';
-        const tempWidth = openedImageWidth || `${frameR.width}px`;
-        const tempHeight = openedImageHeight || `${frameR.height}px`;
+        const tempWidth = aspect ? `${fitW}px` : openedImageWidth || `${frameR.width}px`;
+        const tempHeight = aspect ? `${fitW / aspect}px` : openedImageHeight || `${frameR.height}px`;
         overlay.style.width = tempWidth;
         overlay.style.height = tempHeight;
         const newRect = overlay.getBoundingClientRect();
@@ -720,6 +774,8 @@ export default function DomeGallery({
                 key={`${it.x},${it.y},${i}`}
                 className="item"
                 data-src={it.src}
+                data-video={it.video || undefined}
+                data-aspect={it.aspect || undefined}
                 data-offset-x={it.x}
                 data-offset-y={it.y}
                 data-size-x={it.sizeX}
@@ -740,6 +796,8 @@ export default function DomeGallery({
                   aria-label={it.alt || 'Open image'}
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
+                  onPointerEnter={playTile}
+                  onPointerLeave={stopTile}
                 >
                   <img src={it.src} draggable={false} alt={it.alt} />
                 </div>

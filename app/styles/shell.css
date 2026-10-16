@@ -683,67 +683,61 @@ html:has(.pm-menu[open]) {
 
 /* ---------- Work: dome gallery ---------- */
 
-/* Full-screen globe. Where scroll timelines exist, the section is a 300svh runway: the stage
-   stays pinned and the scroll turns the globe a full 360. Elsewhere it is one screen, drag only. */
-@property --dg-spin {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0deg;
-}
-
+/* Full-screen globe, edge to edge. The mouse turns it (DomeGallery cursorSpin); drag works too. */
 .pm-dome {
   position: relative;
-  margin: var(--pm-space-7) calc(-1 * var(--pm-gutter));
+  width: 100vw;
+  height: 100svh;
+  margin-inline: calc(50% - 50vw);
   background: var(--pm-abyss);
 }
 
 .pm-dome__stage {
   position: relative;
-  isolation: isolate;
-  height: 100svh;
+  height: 100%;
 }
 
-/* Greyscale for the whole globe in one compositing pass (a filter per tile cost frames). */
-.pm-dome__stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #000;
-  mix-blend-mode: saturation;
-  pointer-events: none;
-}
-
-/* Vertical swipes scroll the page (which turns the globe); sideways drags turn it directly. */
+/* Vertical swipes scroll the page; sideways drags turn the globe. */
 .pm-dome .sphere-main {
+  isolation: isolate;
   touch-action: pan-y;
 }
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .pm-dome {
-      height: 300svh;
-      view-timeline: --pm-dome block;
-    }
-
-    .pm-dome__stage {
-      position: sticky;
-      top: 0;
-      animation: pm-dome-spin linear both;
-      animation-timeline: --pm-dome;
-      animation-range: contain 0% contain 100%;
-    }
-  }
+/* Greyscale for the whole globe in one blend layer (a filter per tile cost frames). It sits under
+   the viewer, so an opened project plays in colour. No round vignette: the tiles run off the
+   left and right edges of the screen. */
+.pm-dome .overlay {
+  background: #000;
+  mix-blend-mode: saturation;
 }
 
-@keyframes pm-dome-spin {
-  to {
-    --dg-spin: 360deg;
-  }
+.pm-dome .overlay--blur {
+  display: none;
+}
+
+.pm-dome .item__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.pm-dome .viewer .enlarge img,
+.pm-dome .viewer .enlarge video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
 }
 
 .pm-dome__hint {
   position: absolute;
-  bottom: var(--pm-space-5);
+  z-index: 4;
+  top: var(--pm-space-6);
   left: 50%;
   margin: 0;
   translate: -50% 0;

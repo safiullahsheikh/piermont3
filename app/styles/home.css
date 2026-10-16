@@ -400,17 +400,6 @@
   text-wrap: balance;
 }
 
-.pm-hero__line--tail {
-  font-style: italic;
-  color: var(--pm-mist);
-}
-
-@media (min-width: 768px) {
-  .pm-hero__line--tail {
-    padding-left: 1.4em;
-  }
-}
-
 .pm-hero__foot {
   display: flex;
   align-items: center;
@@ -484,10 +473,23 @@
   color: var(--pm-mist);
 }
 
+/* Heading, carousel and links share one screen; the carousel takes what the others leave. */
+.pm-acc-wrap.is-carousel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100svh;
+  min-height: 34rem;
+  padding-block: var(--pm-space-7) calc(var(--pm-header-h) + var(--pm-space-5));
+}
+
+.is-carousel .pm-acc__head {
+  margin-bottom: 0;
+}
+
 /* React Bits FlexCarousel, full bleed. */
 .pm-flex {
   position: relative;
-  height: min(560px, 72svh);
+  min-height: 0;
   margin-inline: calc(-1 * var(--pm-gutter));
 }
 
@@ -513,13 +515,12 @@
   outline-offset: calc(-1 * var(--pm-focus-offset));
 }
 
-.pm-flex__open {
-  display: table;
-  margin: var(--pm-space-7) auto 0;
-}
-
-.pm-acc__end {
-  margin-top: var(--pm-space-8);
+.pm-flex__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-4) var(--pm-space-6);
 }
 
 @media (min-width: 768px) {

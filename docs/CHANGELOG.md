@@ -1,5 +1,12 @@
 # Changelog
 
+## Dome videos, cursor turn, one-screen projects, hero type (2026-10-16)
+
+- `/case-studies` dome: edge to edge, one screen tall, no round vignette, so the tiles run off the left and right of the screen. The mouse turns it (left edge to right edge is a full turn, eased); drag still works on touch. Scroll no longer turns it.
+- Dome tiles are the 25 case studies: each plays its video while the mouse is on it. Clicking opens the video in colour, playing, at its own shape (no crop). Pantry has no video, so its image opens at its shape.
+- Home projects: heading, carousel and links fit one screen. The carousel no longer takes the mouse wheel (the page scrolls); drag, sideways swipe, arrow keys or a click move it.
+- Home hero: both lines in the same face, size, colour and style on one left edge (the italic, indented second line is gone).
+
 ## React Bits wheel and carousel, card media, cursor removed, frame rate (2026-10-16)
 
 - Home services: the React Bits OptionWheel with your settings (side left, font size 3, tilt 6, blur 2, fade 0.25 and so on) on 1024 px and up. Mouse wheel, drag, click or arrow keys turn it; at either end the wheel hands back to the page. Its click plays only when the site sound is on (`/sounds/click-soft.mp3`, a short tone made with ffmpeg).

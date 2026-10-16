@@ -32,7 +32,7 @@ export function ProjectsCarousel() {
 
   return (
     <FootageSection name="diver" mode="scrub" className="pm-projects-ch" aria-labelledby="pm-projects-title">
-      <div className="pm-acc-wrap">
+      <div className={tier === "low" ? "pm-acc-wrap" : "pm-acc-wrap is-carousel"}>
         <header className="pm-acc__head">
           <h2 id="pm-projects-title" className="pm-acc__title">
             Projects <span className="pm-acc__count">{PROJECTS.length}</span>
@@ -72,18 +72,23 @@ export function ProjectsCarousel() {
                 followCursor={false}
                 autoplay={false}
                 interval={4}
-                captureWheel
+                // Off: the vertical wheel scrolls the page. Drag, sideways swipe, arrow keys or a click move it.
+                captureWheel={false}
               />
             </div>
-            <Link href={projectHref(current)} className="pm-link pm-flex__open">
-              View {current.client}
-            </Link>
           </>
         )}
-        <Link href="/case-studies" className="pm-button pm-acc__end">
-          See all {PROJECTS.length} case studies
-          <Arrow />
-        </Link>
+        <div className="pm-flex__foot">
+          {tier !== "low" && (
+            <Link href={projectHref(current)} className="pm-link">
+              View {current.client}
+            </Link>
+          )}
+          <Link href="/case-studies" className="pm-button">
+            See all {PROJECTS.length} case studies
+            <Arrow />
+          </Link>
+        </div>
       </div>
     </FootageSection>
   );

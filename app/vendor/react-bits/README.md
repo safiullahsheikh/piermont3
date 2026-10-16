@@ -12,4 +12,4 @@ Use in a site is allowed; reselling the components is not.
 | FlexCarousel | https://reactbits.dev/r/FlexCarousel-TS-CSS.json | `ariaLabel` prop; with `captureWheel`, after one full lap of vertical wheel the page scrolls on instead of being trapped by the loop |
 
 Kept close to upstream so they can be diffed and updated; lint skips this folder.
-- DomeGallery: the sphere transform adds a `--dg-spin` CSS variable to the dragged yaw (the page drives it from scroll), and opening a tile accounts for it.
+- DomeGallery: `cursorSpin` prop (the mouse's x across the gallery turns it, eased, added to the dragged yaw; opening a tile accounts for it); items may carry `video` and `aspect`: a tile plays its video while the mouse is on it, and the opened view plays the video at the item's own shape instead of a cropped square.

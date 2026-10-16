@@ -46,7 +46,7 @@ export function HomeHero() {
             <span className="pm-hero__line">
               <span>Brands, websites &amp; ads</span>
             </span>
-            <span className="pm-hero__line pm-hero__line--tail">
+            <span className="pm-hero__line">
               <span>built to grow.</span>
             </span>
           </h1>
