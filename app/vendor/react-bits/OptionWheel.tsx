@@ -27,6 +27,10 @@ export interface OptionWheelProps {
   soundVolume?: number;
   className?: string;
   ariaLabel?: string;
+  /** Piermont: controlled position (fractional turns between options), e.g. from scroll. */
+  position?: number;
+  /** Piermont: false leaves the mouse wheel to the page. */
+  captureWheel?: boolean;
 }
 
 interface WheelConfig {
@@ -44,6 +48,7 @@ interface WheelConfig {
   draggable: boolean;
   soundUrl: string;
   soundVolume: number;
+  captureWheel: boolean;
 }
 
 const DEFAULT_ITEMS = [
@@ -82,7 +87,9 @@ const OptionWheel = ({
   soundUrl = '',
   soundVolume = 0.5,
   className = '',
-  ariaLabel = 'Option wheel'
+  ariaLabel = 'Option wheel',
+  position,
+  captureWheel = true
 }: OptionWheelProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -119,7 +126,8 @@ const OptionWheel = ({
     smoothing,
     draggable,
     soundUrl,
-    soundVolume
+    soundVolume,
+    captureWheel
   };
 
   // Single rAF loop that eases the wheel position toward its target with
@@ -225,6 +233,7 @@ const OptionWheel = ({
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
       const cfg = cfgRef.current;
+      if (!cfg.captureWheel) return;
       const delta = e.deltaMode === 1 ? e.deltaY * 24 : e.deltaY;
       // Piermont: at either end of a non-looping wheel, let the page keep scrolling.
       const t = targetRef.current;
@@ -304,6 +313,10 @@ const OptionWheel = ({
   useEffect(() => {
     applyTarget(targetRef.current, false);
   }, [items, fontSize, spacing, curve, tilt, blur, fade, minOpacity, side, loop, smoothing, applyTarget]);
+
+  useEffect(() => {
+    if (position != null) applyTarget(position, false);
+  }, [position, applyTarget]);
 
   useEffect(
     () => () => {

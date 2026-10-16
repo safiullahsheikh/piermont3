@@ -54,8 +54,11 @@ export default function Home() {
       />
       <main id="main" className="pm-home">
         <HomeHero />
-        <ProjectsCarousel />
-        <ServicesReef />
+        {/* One diver shot runs under projects and services, so the descent never cuts. */}
+        <FootageSection name="diver" mode="scrub" className="pm-projects-ch">
+          <ProjectsCarousel />
+          <ServicesReef />
+        </FootageSection>
         <div className="pm-home__proof">
           <TestimonialsSection />
           <StoriesSection />

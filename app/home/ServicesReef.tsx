@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Arrow } from "../components/Arrow";
-import { FootageSection } from "../components/Footage";
 import { LazyVideo } from "../components/LazyVideo";
-import { gsap, useGSAP } from "../motion/gsap";
+import { gsap, ScrollTrigger, useGSAP } from "../motion/gsap";
 import { useDeviceTier } from "../motion/tier";
 import { useSound } from "../sound/waves";
 import { SOLUTIONS } from "../solutions/solutions";
@@ -14,26 +13,49 @@ import OptionWheel from "../vendor/react-bits/OptionWheel";
 import { SERVICES } from "./services";
 
 const TITLES = SERVICES.map((s) => s.title);
+const LAST = SERVICES.length - 1;
 
 /**
- * Chapter 03, The reef. On large screens the six services sit on the React Bits option wheel
- * (wheel, drag, click or arrow keys) and the chosen one opens beside it over its own video.
- * Elsewhere the services are glass panels, each over its video, that tip up out of the water.
+ * Chapter 03, services, still over the diver footage (page.tsx). On large screens the six
+ * services sit on the React Bits option wheel: it holds still and scrolling turns it;
+ * clicking a service or the arrow keys scroll to it. The chosen one opens beside it over its own
+ * video. Elsewhere the services are panels, each over its video, that tip up out of the water.
  * Then the five solutions.
  */
 export function ServicesReef() {
   const ref = useRef<HTMLDivElement>(null);
+  const trigger = useRef<ScrollTrigger | null>(null);
+  // The service the scroll position points at; a change from anywhere else scrolls there.
+  const fromScroll = useRef(0);
   const tier = useDeviceTier();
   const sound = useSound();
   const [wheel, setWheel] = useState(false);
   const [active, setActive] = useState(0);
+  const [pos, setPos] = useState(0);
+
+  // The runway grows when the wheel mounts; measure again.
+  useEffect(() => ScrollTrigger.refresh(), [wheel]);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
         setWheel(true);
-        return () => setWheel(false);
+        // CSS sticky holds the wheel (home.css); this only reads how far through the runway we are.
+        trigger.current = ScrollTrigger.create({
+          trigger: ref.current!.querySelector(".pm-svc-run"),
+          start: "top top",
+          end: "bottom bottom",
+          onUpdate: (st) => {
+            const p = st.progress * LAST;
+            fromScroll.current = Math.round(p);
+            setPos(Math.round(p * 100) / 100);
+          },
+        });
+        return () => {
+          setWheel(false);
+          trigger.current = null;
+        };
       });
       if (tier === "low") return;
       mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
@@ -54,8 +76,14 @@ export function ServicesReef() {
     { scope: ref, dependencies: [tier] },
   );
 
+  const go = (i: number) => {
+    const st = trigger.current;
+    if (!st) return;
+    window.scrollTo({ top: st.start + (i / LAST) * (st.end - st.start) + 1, behavior: "smooth" });
+  };
+
   return (
-    <FootageSection name="reef" mode="scrub" className="pm-reef" aria-labelledby="pm-services-title">
+    <section className="pm-reef" aria-labelledby="pm-services-title">
       <div ref={ref} className="pm-reef__inner">
         <header className="pm-reef__head">
           <p className="pm-label">Services</p>
@@ -63,12 +91,18 @@ export function ServicesReef() {
             What we do best, and what your next project needs most.
           </h2>
         </header>
+        <div className="pm-svc-run">
         <div className={`pm-svc${wheel ? " is-wheel" : ""}`}>
           {wheel && (
             <OptionWheel
               items={TITLES}
               defaultSelected={0}
-              onChange={(i) => setActive(i)}
+              position={pos}
+              captureWheel={false}
+              onChange={(i) => {
+                setActive(i);
+                if (i !== fromScroll.current) go(i);
+              }}
               ariaLabel="Services"
               textColor="var(--pm-mist)"
               activeColor="var(--pm-foam)"
@@ -82,7 +116,8 @@ export function ServicesReef() {
               smoothing={200}
               inset={80}
               loop={false}
-              draggable
+              // Scroll turns it now; a drag would fight the scroll.
+              draggable={false}
               // The tick follows the site's sound switch: silent unless the visitor turned sound on.
               soundUrl={sound ? "/sounds/click-soft.mp3" : ""}
               soundVolume={0.5}
@@ -115,6 +150,7 @@ export function ServicesReef() {
             ))}
           </ol>
         </div>
+        </div>
 
         <section className="pm-build" aria-labelledby="pm-build-title">
           <header className="pm-build__head">
@@ -145,6 +181,6 @@ export function ServicesReef() {
           </ol>
         </section>
       </div>
-    </FootageSection>
+    </section>
   );
 }

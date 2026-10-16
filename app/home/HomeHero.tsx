@@ -22,6 +22,8 @@ export function HomeHero() {
           scrollTrigger: { trigger: ref.current, start: "top top", end: "bottom top", scrub: 0.6 },
         });
         tl.to(".pm-chapter__stage", { yPercent: 28, scale: 1.18 }, 0)
+          // Fades to the abyss by the end, meeting the diver chapter's dark top edge without a seam.
+          .to(".pm-chapter__stage", { opacity: 0, ease: "power1.in" }, 0)
           .to(".pm-chapter__shade", { opacity: 1 }, 0)
           .to(".pm-hero__line", { yPercent: -60, opacity: 0, stagger: 0.08 }, 0)
           .to(".pm-hero__foot", { y: -60, opacity: 0 }, 0);

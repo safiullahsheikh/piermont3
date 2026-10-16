@@ -208,54 +208,70 @@ body {
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* ---------- Menu (native modal dialog) ---------- */
+/* ---------- Menu: a small panel rising from the pill (native modal dialog) ---------- */
 
+/* The dialog itself is a clear full-screen layer: a click on it, outside the panel, closes. */
 .pm-menu {
   position: fixed;
   inset: 0;
   display: none;
-  grid-template-rows: 1fr auto var(--pm-header-h);
+  align-content: end;
+  justify-items: center;
   width: 100%;
   max-width: none;
   height: 100dvh;
   max-height: none;
   margin: 0;
-  padding: var(--pm-space-6) var(--pm-gutter) 0;
+  padding: 0 var(--pm-space-4) calc(var(--pm-space-4) + 3.5rem + var(--pm-space-3));
   border: 0;
-  overflow: hidden;
-  background: var(--pm-deep);
+  background: transparent;
   color: var(--pm-foam);
   font-family: var(--pm-font-body);
-  /* Water rising: the panel fills upward from the bar. */
-  clip-path: inset(100% 0 0 0);
-  transition:
-    clip-path var(--pm-dur-medium) var(--pm-ease-in-out),
-    display var(--pm-dur-medium) allow-discrete,
-    overlay var(--pm-dur-medium) allow-discrete;
 }
 
 .pm-menu[open] {
   display: grid;
-  clip-path: inset(0);
-}
-
-@starting-style {
-  .pm-menu[open] {
-    clip-path: inset(100% 0 0 0);
-  }
 }
 
 .pm-menu::backdrop {
-  background: transparent;
+  background: rgb(4 10 23 / 0.35);
 }
 
 html:has(.pm-menu[open]) {
   overflow: hidden;
 }
 
+.pm-menu__panel {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  width: min(24rem, 100%);
+  /* Eight 3rem rows plus the foot. */
+  height: min(31rem, calc(100dvh - 9rem));
+  overflow: hidden;
+  border: 1px solid var(--pm-hairline);
+  border-radius: var(--pm-radius-md);
+  background: var(--pm-deep);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.45);
+  transform-origin: 50% 100%;
+  transition:
+    translate var(--pm-dur-short) var(--pm-ease-out),
+    opacity var(--pm-dur-short) linear;
+}
+
+@starting-style {
+  .pm-menu[open] .pm-menu__panel {
+    translate: 0 1.5rem;
+    opacity: 0;
+  }
+}
+
 .pm-menu__flow {
   min-height: 0;
-  margin-inline: calc(-1 * var(--pm-gutter));
+}
+
+/* Rows share the panel's height evenly (the component's own 56px floor would overflow it). */
+.pm-menu__flow .flowing-menu__item {
+  min-height: 0;
 }
 
 .pm-menu__flow .flowing-menu__label {
@@ -278,15 +294,20 @@ html:has(.pm-menu[open]) {
 .pm-menu__foot {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--pm-space-4) var(--pm-space-6);
-  padding-block: var(--pm-space-5);
+  gap: var(--pm-space-2) var(--pm-space-5);
+  padding: var(--pm-space-4) var(--pm-space-5);
   border-top: 1px solid var(--pm-hairline);
   color: var(--pm-mist);
+  font-size: var(--pm-text-sm);
+}
+
+.pm-menu__foot .pm-button {
+  flex-basis: 100%;
+  justify-content: center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pm-menu {
+  .pm-menu__panel {
     transition: none;
   }
 }

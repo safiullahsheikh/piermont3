@@ -8,7 +8,7 @@ Use in a site is allowed; reselling the components is not.
 |---|---|---|
 | FlowingMenu | https://reactbits.dev/r/FlowingMenu-TS-CSS.json | `@hugeicons` arrow replaced with an inline SVG (no extra dependency) |
 | DomeGallery | https://reactbits.dev/r/DomeGallery-TS-CSS.json | CSS scoped under `.sphere-root`; focus outline restored (`:focus-visible`) |
-| OptionWheel | https://reactbits.dev/r/OptionWheel-TS-CSS.json | `ariaLabel` prop; at either end of a non-looping wheel the mouse wheel scrolls the page instead of being swallowed |
+| OptionWheel | https://reactbits.dev/r/OptionWheel-TS-CSS.json | `ariaLabel` prop; `position` prop (controlled, fractional, e.g. from scroll); `captureWheel` prop (false leaves the mouse wheel to the page); at either end of a non-looping wheel the mouse wheel scrolls the page instead of being swallowed |
 | FlexCarousel | https://reactbits.dev/r/FlexCarousel-TS-CSS.json | `ariaLabel` prop; with `captureWheel`, after one full lap of vertical wheel the page scrolls on instead of being trapped by the loop |
 
 Kept close to upstream so they can be diffed and updated; lint skips this folder.

@@ -9,7 +9,7 @@ import FlowingMenu from "../vendor/react-bits/FlowingMenu";
 import { Arrow } from "./Arrow";
 import { SoundToggle } from "./SoundToggle";
 
-/** Full menu: every top-level page. Images show in the flowing band on hover. */
+/** Menu: every top-level page, in a small panel above the pill. Images show in the flowing band on hover. */
 const MENU = [
   { label: "Home", href: "/", image: "/media/pier-lamps.webp" },
   { label: "Solutions", href: "/solutions", image: "/footage/reef-l.webp" },
@@ -119,7 +119,10 @@ export function SiteHeader() {
         className="pm-menu"
         aria-label="Site menu"
         onClose={() => setOpen(false)}
+        // A click on the clear layer around the panel closes the menu.
+        onClick={(e) => e.target === e.currentTarget && closeMenu()}
       >
+        <div className="pm-menu__panel">
         {opened > 0 && (
           <FlowingMenu
             key={opened}
@@ -160,6 +163,7 @@ export function SiteHeader() {
           <a href={PHONE.href} className="pm-link">
             {PHONE.display}
           </a>
+        </div>
         </div>
         {/* The same pill, in the same place, so it stays put while the menu rises behind it. */}
         <div className="pm-pill">

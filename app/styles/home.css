@@ -434,7 +434,7 @@
   }
 }
 
-/* ---------- 02 Exploration: projects carousel ---------- */
+/* ---------- 02 Exploration: projects, then services, over one continuous diver shot ---------- */
 
 .pm-projects-ch .pm-chapter__shade {
   background: linear-gradient(var(--pm-abyss), rgb(4 10 23 / 0.25) 30%, rgb(4 10 23 / 0.25) 70%, var(--pm-abyss));
@@ -535,10 +535,6 @@
 }
 
 /* ---------- 03 The reef: services and solutions ---------- */
-
-.pm-reef .pm-chapter__shade {
-  background: linear-gradient(var(--pm-abyss), rgb(4 10 23 / 0.55) 22%, rgb(4 10 23 / 0.72) 60%, var(--pm-abyss));
-}
 
 .pm-reef__inner {
   max-width: var(--pm-max);
@@ -643,12 +639,20 @@
 }
 
 /* Option wheel (large screens): React Bits OptionWheel beside the open panel. */
+/* The wheel holds still (sticky) through a runway of 60svh per service while scroll turns it. */
+.pm-svc-run:has(.is-wheel) {
+  height: calc(100svh + 5 * 60svh);
+}
+
 .pm-svc.is-wheel {
+  position: sticky;
+  top: 0;
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   align-items: center;
   gap: var(--pm-space-8);
-  min-height: min(100svh, 48rem);
+  height: 100svh;
+  padding-bottom: var(--pm-header-h);
 }
 
 .pm-owheel {

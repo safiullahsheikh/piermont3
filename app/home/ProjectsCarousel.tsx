@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useState } from "react";
 import { Arrow } from "../components/Arrow";
-import { FootageSection } from "../components/Footage";
 import { WorkGrid } from "../components/WorkGrid";
 import { useDeviceTier } from "../motion/tier";
 import { PROJECTS, projectHref } from "../work/projects";
@@ -21,7 +20,7 @@ const ITEMS = FEATURED.map((p) => ({
 }));
 
 /**
- * Chapter 02, Exploration. Ten projects on the React Bits FlexCarousel over the diver footage:
+ * Chapter 02, Exploration. Ten projects on the React Bits FlexCarousel over the diver footage (page.tsx):
  * drag, wheel or arrow keys to bend through them, click to bring one close. The link under it
  * follows the project in front. Low-power devices get the plain grid.
  */
@@ -31,8 +30,7 @@ export function ProjectsCarousel() {
   const current = FEATURED[active];
 
   return (
-    <FootageSection name="diver" mode="scrub" className="pm-projects-ch" aria-labelledby="pm-projects-title">
-      <div className={tier === "low" ? "pm-acc-wrap" : "pm-acc-wrap is-carousel"}>
+    <section aria-labelledby="pm-projects-title" className={tier === "low" ? "pm-acc-wrap" : "pm-acc-wrap is-carousel"}>
         <header className="pm-acc__head">
           <h2 id="pm-projects-title" className="pm-acc__title">
             Projects <span className="pm-acc__count">{PROJECTS.length}</span>
@@ -89,7 +87,6 @@ export function ProjectsCarousel() {
             <Arrow />
           </Link>
         </div>
-      </div>
-    </FootageSection>
+    </section>
   );
 }

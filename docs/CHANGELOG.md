@@ -1,5 +1,12 @@
 # Changelog
 
+## Services wheel on scroll, one diver shot, small menu (2026-10-16)
+
+- Home services (1024px and up): the option wheel holds still on screen while scrolling turns it, one service per 60svh of scroll. Clicking a service or the arrow keys scroll to it. The mouse wheel is no longer captured by the wheel, and drag is off (it fought the scroll). Held with CSS sticky, not a GSAP pin.
+- Coral footage removed from the home page. The diver shot now runs on under projects and services as one chapter, so the descent never cuts. The coral files stay in `public/footage/` for later phases.
+- Hero to diver: the hero footage fades to the abyss as it sinks, meeting the diver chapter's dark top edge, so there is no hard break between the two.
+- Menu: a small panel that rises just above the pill (all eight pages, Start a project, email, phone) instead of a full-screen page. Closes on the pill's close button, a click outside, or Escape.
+
 ## Dome videos, cursor turn, one-screen projects, hero type (2026-10-16)
 
 - `/case-studies` dome: edge to edge, one screen tall, no round vignette, so the tiles run off the left and right of the screen. The mouse turns it (left edge to right edge is a full turn, eased); drag still works on touch. Scroll no longer turns it.
