@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { WorkGrid } from "../../components/WorkGrid";
+import { ProjectRing } from "../../components/ProjectRing";
 import { CtaBand } from "../../components/CtaBand";
 import { Reveal } from "../../motion/Reveal";
 import { pageMeta } from "../../site";
@@ -49,13 +49,13 @@ export default async function CategoryPage({
         </h1>
         <p className="pm-page__lead">{category.intro}</p>
         <CategoryNav current={category.slug} />
-        <section aria-labelledby="projects-heading" className="pm-projects" data-reveal="fade">
-          <h2 id="projects-heading" className="pm-label">
-            Projects <span className="pm-filter__count">{projects.length}</span>
-          </h2>
-          <WorkGrid projects={projects} />
-        </section>
       </Reveal>
+      <section aria-labelledby="projects-heading" className="pm-projects pm-projects--ring">
+        <h2 id="projects-heading" className="pm-label pm-page__inner">
+          Projects <span className="pm-filter__count">{projects.length}</span>
+        </h2>
+        <ProjectRing projects={projects} />
+      </section>
       <CtaBand />
     </main>
   );

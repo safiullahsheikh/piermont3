@@ -683,11 +683,51 @@ html:has(.pm-menu[open]) {
 
 /* ---------- Work: dome gallery ---------- */
 
+/* Full-screen globe. Where scroll timelines exist, the section is a 300svh runway: the stage
+   stays pinned and the scroll turns the globe a full 360. Elsewhere it is one screen, drag only. */
+@property --dg-spin {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
 .pm-dome {
   position: relative;
-  height: min(86svh, 56rem);
-  margin-block: var(--pm-space-7);
+  margin: var(--pm-space-7) calc(-1 * var(--pm-gutter));
   background: var(--pm-abyss);
+}
+
+.pm-dome__stage {
+  position: relative;
+  height: 100svh;
+}
+
+/* Vertical swipes scroll the page (which turns the globe); sideways drags turn it directly. */
+.pm-dome .sphere-main {
+  touch-action: pan-y;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pm-dome {
+      height: 300svh;
+      view-timeline: --pm-dome block;
+    }
+
+    .pm-dome__stage {
+      position: sticky;
+      top: 0;
+      animation: pm-dome-spin linear both;
+      animation-timeline: --pm-dome;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+
+@keyframes pm-dome-spin {
+  to {
+    --dg-spin: 360deg;
+  }
 }
 
 .pm-dome__hint {
@@ -790,4 +830,146 @@ html:has(.pm-menu[open]) {
   color: var(--pm-foam);
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+/* ---------- Project ring (category pages) ---------- */
+
+.pm-projects--ring {
+  margin-inline: calc(-1 * var(--pm-gutter));
+  padding-top: var(--pm-space-7);
+  overflow-x: clip;
+}
+
+.pm-ring {
+  --w: clamp(15rem, 30vw, 26rem);
+  /* Radius that fits n cards round the ring with a little air between them. */
+  --r: calc(var(--w) / 2 / tan(180deg / var(--n)) * 1.08);
+}
+
+.pm-ring__stage {
+  position: relative;
+  height: calc(var(--w) * 0.75 + var(--pm-space-8) * 2);
+  perspective: 1800px;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.pm-ring__stage:active {
+  cursor: grabbing;
+}
+
+.pm-ring__track {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--r) * -1)) rotateY(var(--a));
+  transition: transform 900ms var(--pm-ease-out);
+}
+
+.pm-ring__track.is-dragging {
+  transition: none;
+}
+
+.pm-ring__card {
+  position: absolute;
+  top: calc(var(--w) * -0.375);
+  left: calc(var(--w) / -2);
+  width: var(--w);
+  aspect-ratio: 4 / 3;
+  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+  backface-visibility: hidden;
+}
+
+.pm-ring__card a {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 14px;
+  background: var(--pm-deep);
+  filter: brightness(0.5) saturate(0.7);
+  transition: filter var(--pm-dur-medium) var(--pm-ease-out);
+  -webkit-user-drag: none;
+}
+
+.pm-ring__card[data-front] a,
+.pm-ring__card a:focus-visible {
+  filter: none;
+}
+
+.pm-ring__card a:focus-visible {
+  outline: var(--pm-focus-ring);
+  outline-offset: 4px;
+}
+
+.pm-ring__card img {
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.pm-ring__name {
+  position: absolute;
+  inset: auto 0 0;
+  padding: var(--pm-space-6) var(--pm-space-4) var(--pm-space-3);
+  background: linear-gradient(transparent, rgb(4 10 23 / 0.85));
+  color: var(--pm-foam);
+  font-family: var(--pm-font-display);
+  font-size: var(--pm-text-lg);
+}
+
+.pm-ring__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-6);
+  padding-inline: var(--pm-gutter);
+}
+
+.pm-ring__arrow {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--pm-hairline-strong);
+  border-radius: 50%;
+  background: none;
+  color: var(--pm-foam);
+  cursor: pointer;
+  transition: border-color var(--pm-dur-micro) linear;
+}
+
+.pm-ring__arrow:hover {
+  border-color: var(--pm-foam);
+}
+
+.pm-ring__arrow:first-child svg {
+  scale: -1 1;
+}
+
+.pm-ring__caption {
+  display: grid;
+  min-width: 12rem;
+  margin: 0;
+  text-align: center;
+}
+
+.pm-ring__client {
+  font-family: var(--pm-font-display);
+  font-size: var(--pm-text-xl);
+}
+
+.pm-ring__service {
+  color: var(--pm-mist);
+  font-size: var(--pm-text-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-ring__track,
+  .pm-ring__card a {
+    transition: none;
+  }
 }

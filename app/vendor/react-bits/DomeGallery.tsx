@@ -203,7 +203,8 @@ export default function DomeGallery({
   const applyTransform = (xDeg: number, yDeg: number) => {
     const el = sphereRef.current;
     if (el) {
-      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(${yDeg}deg)`;
+      // Piermont: --dg-spin (set by the page from scroll) adds to the dragged yaw.
+      el.style.transform = `translateZ(calc(var(--radius) * -1)) rotateX(${xDeg}deg) rotateY(calc(${yDeg}deg + var(--dg-spin, 0deg)))`;
     }
   };
 
@@ -418,7 +419,8 @@ export default function DomeGallery({
 
     const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments);
     const parentY = normalizeAngle(parentRot.rotateY);
-    const globalY = normalizeAngle(rotationRef.current.y);
+    const spin = parseFloat(getComputedStyle(sphereRef.current!).getPropertyValue('--dg-spin')) || 0;
+    const globalY = normalizeAngle(rotationRef.current.y + spin);
     let rotY = -(parentY + globalY) % 360;
     if (rotY < -180) rotY += 360;
     const rotX = -parentRot.rotateX - rotationRef.current.x;

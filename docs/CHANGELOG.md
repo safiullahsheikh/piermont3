@@ -2,6 +2,9 @@
 
 ## Navigation pill and media fix (2026-10-16)
 
+- `/case-studies`: the dome is now a full-screen globe. Scrolling through it turns it a full 360 (CSS scroll timeline; browsers without one get drag only); dragging still turns it.
+- Category pages show their projects on a 3D ring carousel: drag or swipe sideways, arrow buttons, or Tab through the cards; the front project is named below.
+- Home hero headline resized so "Brands, websites & ads" stays on one line from tablets up and breaks evenly on phones.
 - Navigation is now a floating pill at the lower middle of the screen: logo, sound switch (bars only) and a three-line menu button. The menu rises behind the pill, and the button turns into an X. The inline page links and the "Start a project" button left the bar on your instruction; "Start a project" stays in the hero and in the menu.
 - Footage and photos are stored as normal git files instead of Git LFS, so Vercel (and any host) gets the real files. The largest is 5.8 MB. Git LFS stays for source files (`assets-src/`, Blender, GLB, KTX2, EXR, HDR).
 - Removed the stale `pnpm-lock.yaml`; the project installs with npm.

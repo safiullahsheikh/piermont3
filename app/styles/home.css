@@ -380,7 +380,8 @@
 .pm-hero__title {
   margin: 0;
   font-family: var(--pm-font-display);
-  font-size: clamp(3rem, 9.4vw, 10.5rem);
+  /* Sized so the first line stays one line from tablets up; capped where the content column stops growing. */
+  font-size: clamp(2.75rem, 8.4vw, 7.75rem);
   font-weight: 400;
   font-variation-settings: "opsz" 96;
   letter-spacing: -0.025em;
@@ -395,6 +396,8 @@
 
 .pm-hero__line > span {
   display: inline-block;
+  /* On phones the break falls evenly: "Brands, websites" / "& ads". */
+  text-wrap: balance;
 }
 
 .pm-hero__line--tail {

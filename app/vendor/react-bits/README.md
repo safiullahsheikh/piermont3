@@ -11,3 +11,4 @@ Use in a site is allowed; reselling the components is not.
 | GhostCursor | https://reactbits.dev/r/GhostCursor-TS-CSS.json | None |
 
 Kept close to upstream so they can be diffed and updated; lint skips this folder.
+- DomeGallery: the sphere transform adds a `--dg-spin` CSS variable to the dragged yaw (the page drives it from scroll), and opening a tile accounts for it.
