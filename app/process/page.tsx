@@ -1,11 +1,9 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { pageMeta } from "../site";
-import { HeroHeader } from "../components/HeroHeader";
-import { SiteFooter } from "../components/SiteFooter";
 
 export const metadata: Metadata = pageMeta({
-  title: "Our Process",
+  title: "Our Design & Development Process",
   description:
     "How Piermont Studios takes a project from brief to launch: discovery, strategy, design, build and growth, with clear steps and no surprises.",
   path: "/process",
@@ -163,7 +161,6 @@ export default function ProcessPage() {
     <>
       <main id="main">
         <section className="proc-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="proc-hero-inner">
             <p
               className="proc-kicker"
@@ -329,10 +326,6 @@ export default function ProcessPage() {
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

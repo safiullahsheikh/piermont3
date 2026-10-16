@@ -1,0 +1,98 @@
+/*
+  Design tokens: "Below the Surface".
+  Every new component reads these; nothing new hard-codes a colour, size or timing.
+  Contrast (WCAG 2.2) is noted on each text colour against --pm-abyss / --pm-deep.
+*/
+:root {
+  /* Colour */
+  --pm-abyss: #040a17; /* page base, near-black navy */
+  --pm-deep: #0a1c3a; /* raised surfaces, menu, footer bands */
+  --pm-navy: #0f3375; /* the logo's navy */
+  --pm-foam: #ecf1f3; /* body text: 17.4:1 / 14.9:1 */
+  --pm-mist: #9aabc2; /* secondary text: 8.5:1 / 7.2:1 */
+  --pm-cobalt: #5e8bff; /* accent text, active states: 6.2:1 / 5.3:1 */
+  --pm-cobalt-line: #2456e8; /* hairlines and fills only (3.4:1, non-text) */
+  --pm-amber: #e2ae62; /* habitat interior light, used sparingly: 9.9:1 */
+  --pm-hairline: color-mix(in srgb, var(--pm-cobalt-line) 45%, transparent);
+  --pm-hairline-strong: color-mix(in srgb, var(--pm-cobalt) 70%, transparent);
+  --pm-scrim: color-mix(in srgb, var(--pm-abyss) 82%, transparent);
+
+  /* Type: Bodoni Moda (display, labels) and Figtree (body) */
+  --pm-font-display: var(--font-bodoni), "Bodoni 72", Didot, Georgia, serif;
+  --pm-font-body: var(--font-figtree), system-ui, sans-serif;
+
+  /* Scale: Bringhurst's classic 12 14 16 18 21 24 36 48 72 96, fluid above 24 */
+  --pm-text-xs: 0.75rem;
+  --pm-text-sm: 0.875rem;
+  --pm-text-base: 1rem;
+  --pm-text-md: 1.125rem;
+  --pm-text-lg: 1.3125rem;
+  --pm-text-xl: 1.5rem;
+  --pm-text-2xl: clamp(1.75rem, 1.35rem + 1.6vw, 2.25rem);
+  --pm-text-3xl: clamp(2.25rem, 1.6rem + 2.6vw, 3rem);
+  --pm-text-4xl: clamp(2.75rem, 1.5rem + 5vw, 4.5rem);
+  --pm-text-5xl: clamp(3.25rem, 1.25rem + 8vw, 6rem);
+  --pm-leading-tight: 1.04;
+  --pm-leading-snug: 1.25;
+  --pm-leading-body: 1.6;
+  --pm-tracking-label: 0.11em;
+  --pm-tracking-display: -0.015em;
+  --pm-measure: 36rem; /* about 70 characters of body text */
+
+  /* Space: 4px steps */
+  --pm-space-1: 0.25rem;
+  --pm-space-2: 0.5rem;
+  --pm-space-3: 0.75rem;
+  --pm-space-4: 1rem;
+  --pm-space-5: 1.5rem;
+  --pm-space-6: 2rem;
+  --pm-space-7: 3rem;
+  --pm-space-8: 4rem;
+  --pm-space-9: 6rem;
+  --pm-space-10: 8rem;
+  --pm-section: clamp(4rem, 2rem + 8vw, 9rem);
+
+  /* Layout */
+  --pm-gutter: clamp(1rem, 0.4rem + 3vw, 3.5rem);
+  --pm-max: 90rem;
+  --pm-header-h: 4.5rem;
+
+  /* Shape */
+  --pm-radius-sm: 4px;
+  --pm-radius-md: 10px;
+  --pm-radius-pill: 999px;
+  --pm-shadow-lift: 0 1.5rem 3.5rem -1.5rem rgb(0 0 0 / 0.65);
+
+  /* Layers */
+  --pm-z-canvas: 0;
+  --pm-z-content: 1;
+  --pm-z-header: 50;
+  --pm-z-consent: 70;
+  --pm-z-loader: 80;
+  --pm-z-skip: 90;
+
+  /* Focus */
+  --pm-focus-ring: 2px solid var(--pm-cobalt);
+  --pm-focus-offset: 3px;
+
+  /* Motion (mirrors app/motion/tokens.ts) */
+  --pm-dur-micro: 150ms;
+  --pm-dur-short: 300ms;
+  --pm-dur-medium: 600ms;
+  --pm-dur-long: 1200ms;
+  --pm-dur-cinematic: 2800ms;
+  --pm-ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
+  --pm-ease-in-out: cubic-bezier(0.455, 0.03, 0.515, 0.955); /* power2.inOut */
+  --pm-ease-buoyant: cubic-bezier(0.34, 1.18, 0.64, 1); /* slow settle, slight overshoot */
+  --pm-ease-drift: cubic-bezier(0.37, 0, 0.63, 1); /* sine.inOut */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pm-dur-medium: 300ms;
+    --pm-dur-long: 300ms;
+    --pm-dur-cinematic: 300ms;
+  }
+}
+
+/* Breakpoints (media queries cannot read custom properties): 640, 768, 1024, 1280. */

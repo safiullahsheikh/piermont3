@@ -4,7 +4,7 @@ import { PageShell } from "../components/PageShell";
 import { StoriesSection } from "../components/StoriesSection";
 
 export const metadata: Metadata = pageMeta({
-  title: "Blog: Branding, Design and Marketing Notes",
+  title: "Blog: Branding, Design & Marketing",
   description:
     "Notes on branding, website design, UI/UX, marketing and video from the Piermont Studios team, drawn from real client work.",
   path: "/blog",

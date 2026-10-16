@@ -3,6 +3,10 @@ import type { Project } from "../work/projects";
 export type Solution = {
   slug: string;
   label: string;
+  /** Page title, before the " | Piermont Studios" suffix. */
+  metaTitle: string;
+  /** One line used on the solutions index, home and 404 lists. */
+  summary: string;
   /** Hero title, one entry per line. */
   titleLines: string[];
   group: Project["group"];
@@ -26,6 +30,8 @@ export const SOLUTIONS: Solution[] = [
   {
     slug: "website-development",
     label: "Website Development",
+    metaTitle: "Website Design & Development Services",
+    summary: "Fast, custom sites that turn visitors into customers.",
     titleLines: ["WEBSITE", "DEVELOPMENT"],
     group: "WEBSITE DESIGN",
     metaDescription:
@@ -66,6 +72,8 @@ export const SOLUTIONS: Solution[] = [
   {
     slug: "social-media-design",
     label: "Social Media Design",
+    metaTitle: "Social Media Design & Video Editing",
+    summary: "Short form video and visuals made to stop the scroll.",
     titleLines: ["SOCIAL MEDIA", "DESIGN"],
     group: "VIDEO EDITING",
     metaDescription:
@@ -105,6 +113,8 @@ export const SOLUTIONS: Solution[] = [
   {
     slug: "ad-campaigns",
     label: "Ad Campaigns",
+    metaTitle: "Ad Campaigns & Paid Social Creative",
+    summary: "Paid creative and media planned around your numbers.",
     titleLines: ["AD", "CAMPAIGNS"],
     group: "PERFORMANCE MARKETING",
     metaDescription:
@@ -144,6 +154,8 @@ export const SOLUTIONS: Solution[] = [
   {
     slug: "ai-development",
     label: "AI Development",
+    metaTitle: "AI & Product Development Services",
+    summary: "Useful AI features and products, built around real users.",
     titleLines: ["AI", "DEVELOPMENT"],
     group: "PRODUCT DEVELOPMENT",
     metaDescription:
@@ -183,6 +195,8 @@ export const SOLUTIONS: Solution[] = [
   {
     slug: "branding",
     label: "Branding",
+    metaTitle: "Branding & Brand Identity Design",
+    summary: "Identities with one clear idea, built to work everywhere.",
     titleLines: ["BRAND", "IDENTITY"],
     group: "BRANDING",
     metaDescription:

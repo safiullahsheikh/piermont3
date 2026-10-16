@@ -2,22 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { pageMeta } from "../../site";
-import { HeroHeader } from "../../components/HeroHeader";
-import { SiteFooter } from "../../components/SiteFooter";
-import { LazyVideo } from "../../components/LazyVideo";
-import { PROJECTS, getProject } from "../projects";
+import { pageMeta } from "../../../site";
+import { LazyVideo } from "../../../components/LazyVideo";
+import { PROJECTS, categoryOf, getProject, projectHref } from "../../../work/projects";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return PROJECTS.map((project) => ({ slug: project.slug }));
+  return PROJECTS.map((project) => ({
+    category: categoryOf(project).slug,
+    slug: project.slug,
+  }));
+}
+
+/** The project, only when it is requested under its own category. */
+async function resolve(params: PageProps<"/case-studies/[category]/[slug]">["params"]) {
+  const { category, slug } = await params;
+  const project = getProject(slug);
+  return project && categoryOf(project).slug === category ? project : undefined;
 }
 
 export async function generateMetadata({
   params,
-}: PageProps<"/work/[slug]">): Promise<Metadata> {
-  const project = getProject((await params).slug);
+}: PageProps<"/case-studies/[category]/[slug]">): Promise<Metadata> {
+  const project = await resolve(params);
   if (!project) return {};
   return pageMeta({
     title:
@@ -25,15 +33,15 @@ export async function generateMetadata({
         ? `${project.client} Case Study`
         : `${project.client} Case Study: ${project.service}`,
     description: project.intro,
-    path: `/work/${project.slug}`,
+    path: projectHref(project),
     image: project.image,
   });
 }
 
 export default async function CaseStudyPage({
   params,
-}: PageProps<"/work/[slug]">) {
-  const project = getProject((await params).slug);
+}: PageProps<"/case-studies/[category]/[slug]">) {
+  const project = await resolve(params);
   if (!project) notFound();
 
   const index = PROJECTS.indexOf(project);
@@ -45,7 +53,6 @@ export default async function CaseStudyPage({
     <>
       <main id="main">
         <section className="about-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="about-hero-inner">
             <p className="about-kicker" data-reveal>
               Case study
@@ -135,7 +142,7 @@ export default async function CaseStudyPage({
         </section>
 
         <section className="work-next">
-          <Link href={`/work/${next.slug}`} className="work-next-link">
+          <Link href={projectHref(next)} className="work-next-link">
             <span className="work-next-label">Next project</span>
             <span className="work-next-name">{next.client}</span>
             <span className="work-next-service">{next.service}</span>
@@ -155,10 +162,6 @@ export default async function CaseStudyPage({
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

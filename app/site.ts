@@ -56,10 +56,9 @@ function clip(text: string, max: number) {
   return `${text.slice(0, text.lastIndexOf(" ", max - 1)).replace(/[,.;:]$/, "")}…`;
 }
 
-/** Review profiles shown as icons in the footer. Set `href` to the profile URL; null renders the icon without a link. */
+/** Review profiles shown as icons in the footer, as in production. Set `href` to the profile URL; null renders the icon without a link. */
 export const REVIEWS: { label: string; icon: string; href: string | null }[] = [
   { label: "Bark", icon: "/reviews/bark.png", href: null },
   { label: "Trustpilot", icon: "/reviews/trustpilot.png", href: null },
-  { label: "Google Reviews", icon: "/reviews/google.png", href: null },
   { label: "Clutch", icon: "/reviews/clutch.png", href: null },
 ];

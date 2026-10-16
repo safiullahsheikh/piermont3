@@ -4,11 +4,9 @@ import Link from "next/link";
 import { ContactSection } from "./components/ContactSection";
 import { GlitchHeadline } from "./components/GlitchHeadline";
 import { HeroComputer } from "./components/HeroComputer";
-import { HeroHeader } from "./components/HeroHeader";
 import { HomeVideo } from "./components/HomeVideo";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ServicesSection } from "./components/ServicesSection";
-import { SiteFooter } from "./components/SiteFooter";
 import { StoriesSection } from "./components/StoriesSection";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 import { EMAIL, PHONE, SITE_URL, SOCIALS } from "./site";
@@ -58,7 +56,6 @@ export default function Home() {
       />
       <main id="main">
         <section className="hero-bg relative flex h-svh min-h-[34rem] flex-col overflow-hidden">
-          <HeroHeader />
 
           <div className="hero-main relative z-10 flex min-h-0 flex-1 flex-col items-center px-5 sm:px-8">
             <div className="hero-headline-wrap shrink-0">
@@ -97,10 +94,6 @@ export default function Home() {
         <StoriesSection />
         <ContactSection />
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

@@ -11,6 +11,16 @@
 | Client and brand logos (`public/brands`, `public/logos`) | Stories marquee | Third-party trademarks; use depends on a client relationship | Pending (open question 2) |
 | Project stills and videos | `public/projects` | Studio work product | Pending (open question 2) |
 
+## Added in Phase 1A
+
+| Item | Where | Licence | Verified |
+|---|---|---|---|
+| Bodoni Moda (Latin subset) | `public/Font/bodoni-moda` | SIL OFL 1.1 (`OFL.txt` included); source github.com/google/fonts `ofl/bodonimoda` | Yes |
+| GSAP 3.15 (ScrollTrigger, SplitText, CustomEase) | npm `gsap` | GSAP Standard "No Charge" licence (all plugins free since 3.13) | Yes |
+| @gsap/react | npm | MIT | Yes |
+| axe-core | npm, dev only | MPL-2.0 | Yes |
+| puppeteer-core | npm, dev only | Apache-2.0 | Yes |
+
 ## Planned (verified in Phase 0, added only when used)
 
 | Item | Licence | Source |

@@ -1,11 +1,9 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { pageMeta } from "../site";
-import { HeroHeader } from "../components/HeroHeader";
-import { SiteFooter } from "../components/SiteFooter";
 
 export const metadata: Metadata = pageMeta({
-  title: "Client Testimonials",
+  title: "Client Testimonials & Reviews",
   description:
     "What clients say about working with Piermont Studios on strategy, design and builds that land.",
   path: "/testimonials",
@@ -88,7 +86,6 @@ export default function TestimonialsPage() {
     <>
       <main id="main">
         <section className="tm-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="tm-hero-inner">
             <p
               className="tm-kicker"
@@ -185,10 +182,6 @@ export default function TestimonialsPage() {
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

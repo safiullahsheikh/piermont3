@@ -1,8 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { pageMeta } from "../site";
-import { HeroHeader } from "../components/HeroHeader";
-import { SiteFooter } from "../components/SiteFooter";
 
 export const metadata: Metadata = pageMeta({
   title: "About Our Creative Agency",
@@ -46,7 +44,6 @@ export default function AboutPage() {
     <>
       <main id="main">
         <section className="about-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="about-hero-inner">
             <p className="about-kicker" data-reveal style={{ ["--reveal-delay" as string]: "80ms" }}>
               Studio
@@ -153,10 +150,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

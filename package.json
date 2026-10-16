@@ -10,10 +10,14 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "audit": "node scripts/audit.mjs",
+    "audit:lighthouse": "npx -y lighthouse@12.8.2 http://localhost:3000/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=html --output=json --output-path=./.lighthouse/home --chrome-flags=--headless=new"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@opennextjs/cloudflare": "^1.20.6",
+    "gsap": "^3.15.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"
@@ -23,8 +27,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.14.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "puppeteer-core": "^24.43.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.131.1"

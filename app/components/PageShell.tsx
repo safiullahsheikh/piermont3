@@ -1,7 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { HeroHeader } from "./HeroHeader";
-import { SiteFooter } from "./SiteFooter";
 
 /** Light hero, page content, Start Project CTA and footer: shared by the list pages. */
 export function PageShell({
@@ -22,7 +20,6 @@ export function PageShell({
         <section
           className={`about-hero hero-bg relative overflow-hidden ${bare ? "about-hero-bare" : ""}`}
         >
-          <HeroHeader tone="light" />
           <div className="about-hero-inner">
             <p className="about-kicker" data-reveal>
               {kicker}
@@ -52,10 +49,6 @@ export function PageShell({
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

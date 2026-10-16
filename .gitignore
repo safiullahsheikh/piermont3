@@ -48,3 +48,9 @@ _local_assets
 
 # stray copy containing only node_modules
 /piermont-main
+
+# lighthouse reports
+/.lighthouse
+
+# client source footage (4K masters, encoded by scripts/encode-footage.sh)
+/assets

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { pageMeta } from "../../site";
-import { PageShell } from "../../components/PageShell";
 import { WorkGrid } from "../../components/WorkGrid";
+import { CtaBand } from "../../components/CtaBand";
+import { Reveal } from "../../motion/Reveal";
+import { pageMeta } from "../../site";
 import { CATEGORIES, PROJECTS } from "../../work/projects";
+import { CategoryNav } from "../CategoryNav";
 
 export const dynamicParams = false;
 
@@ -39,18 +41,22 @@ export default async function CategoryPage({
   const projects = PROJECTS.filter((p) => p.group === category.group);
 
   return (
-    <PageShell kicker="Case studies" title={category.title}>
-      <section className="sol-work" id="work">
-        <div className="sol-work-inner">
-          {projects.length ? (
-            <WorkGrid projects={projects} />
-          ) : (
-            <p className="sol-work-heading" data-reveal>
-              New {category.title.toLowerCase()} work is on the way.
-            </p>
-          )}
-        </div>
-      </section>
-    </PageShell>
+    <main id="main" className="pm-page">
+      <Reveal className="pm-page__inner">
+        <p className="pm-label">Case studies</p>
+        <h1 className="pm-page__title">
+          {category.title} <span className="pm-page__title-tail">case studies</span>
+        </h1>
+        <p className="pm-page__lead">{category.intro}</p>
+        <CategoryNav current={category.slug} />
+        <section aria-labelledby="projects-heading" className="pm-projects" data-reveal="fade">
+          <h2 id="projects-heading" className="pm-label">
+            Projects <span className="pm-filter__count">{projects.length}</span>
+          </h2>
+          <WorkGrid projects={projects} />
+        </section>
+      </Reveal>
+      <CtaBand />
+    </main>
   );
 }

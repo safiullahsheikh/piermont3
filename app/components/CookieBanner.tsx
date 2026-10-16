@@ -48,25 +48,25 @@ export function CookieBanner() {
 
   return (
     <div
-      className="cookie-banner"
+      className="pm-consent"
       role="region"
       aria-label="Cookie consent"
     >
-      <p className="cookie-banner-text">
+      <p>
         We use cookies to improve your experience and understand how the site
         is used.
       </p>
-      <div className="cookie-banner-actions">
+      <div className="pm-consent__actions">
         <button
           type="button"
-          className="cookie-banner-btn is-ghost"
+          className="pm-button is-ghost"
           onClick={() => choose("declined")}
         >
           Decline
         </button>
         <button
           type="button"
-          className="cookie-banner-btn"
+          className="pm-button"
           onClick={() => choose("accepted")}
         >
           Accept

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { type CSSProperties, useLayoutEffect, useRef, useState } from "react";
-import { PROJECTS as ALL_PROJECTS } from "../work/projects";
+import { PROJECTS as ALL_PROJECTS, projectHref } from "../work/projects";
 import { LazyVideo } from "./LazyVideo";
 
 // The pinned scroll grows with every card, so the home page shows the first ten.
@@ -218,7 +218,7 @@ export function ProjectsSection() {
                     <div className="flex w-full shrink-0 flex-col justify-start bg-transparent px-5 pt-6 pb-5 sm:w-[19.75rem] sm:min-w-[15.5rem] sm:px-7 sm:pt-8 sm:pr-5 sm:pb-6 sm:pl-8">
                       <h3 className="m-0 max-w-none text-[1.35rem] font-normal leading-[1.22] tracking-[-0.022em] text-white sm:text-[1.5rem]">
                         <Link
-                          href={`/work/${project.slug}`}
+                          href={projectHref(project)}
                           className="text-inherit no-underline after:absolute after:inset-0 after:z-[3] after:rounded-2xl after:content-['']"
                         >
                           {project.client}

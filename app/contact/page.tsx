@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { EMAIL, PHONE, pageMeta } from "../site";
 import { ContactSection } from "../components/ContactSection";
-import { HeroHeader } from "../components/HeroHeader";
-import { SiteFooter } from "../components/SiteFooter";
 
 export const metadata: Metadata = pageMeta({
   title: "Contact Us for a Project Quote",
@@ -45,7 +43,6 @@ export default function ContactPage() {
     <>
       <main id="main">
         <div className="contact-page-top relative">
-          <HeroHeader tone="dark" />
           <ContactSection headingLevel="h1" />
         </div>
 
@@ -93,10 +90,6 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

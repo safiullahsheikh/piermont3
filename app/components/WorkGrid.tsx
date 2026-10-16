@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { Project } from "../work/projects";
+import { projectHref, type Project } from "../work/projects";
 import { LazyVideo } from "./LazyVideo";
 
 export function WorkGrid({ projects }: { projects: Project[] }) {
@@ -27,7 +27,7 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
             )}
           </div>
           <h3 className="sol-work-title">
-            <Link href={`/work/${item.slug}`} className="sol-work-link">
+            <Link href={projectHref(item)} className="sol-work-link">
               {item.client}
             </Link>
           </h3>

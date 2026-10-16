@@ -3,6 +3,9 @@ import { Cormorant_Garamond, Press_Start_2P } from "next/font/google";
 import localFont from "next/font/local";
 import { CookieBanner } from "./components/CookieBanner";
 import { LOADER_SCRIPT, LoadingScreen } from "./components/LoadingScreen";
+import { SiteFooter } from "./components/SiteFooter";
+import { SiteHeader } from "./components/SiteHeader";
+import { MotionRoot } from "./motion/MotionRoot";
 import "./globals.css";
 
 const figtree = localFont({
@@ -52,6 +55,17 @@ const fragmentMono = localFont({
   ],
   variable: "--font-fragment",
   display: "swap",
+});
+
+// Display serif: Bodoni Moda (SIL OFL 1.1), Latin subset, variable weight and optical size.
+const bodoni = localFont({
+  src: [
+    { path: "../public/Font/bodoni-moda/BodoniModa-latin.woff2", weight: "400 900", style: "normal" },
+    { path: "../public/Font/bodoni-moda/BodoniModa-Italic-latin.woff2", weight: "400 900", style: "italic" },
+  ],
+  variable: "--font-bodoni",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 const cormorant = Cormorant_Garamond({
@@ -126,7 +140,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fdfbf7",
+  themeColor: "#040a17",
   width: "device-width",
   initialScale: 1,
 };
@@ -135,7 +149,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${figtree.variable} ${fragmentMono.variable} ${cormorant.variable} ${pressStart.variable} antialiased`}
+      className={`${figtree.variable} ${bodoni.variable} ${fragmentMono.variable} ${cormorant.variable} ${pressStart.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -146,8 +160,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        <SiteHeader />
         {children}
+        <SiteFooter />
         <CookieBanner />
+        <MotionRoot />
       </body>
     </html>
   );

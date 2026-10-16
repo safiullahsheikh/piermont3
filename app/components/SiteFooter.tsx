@@ -1,206 +1,150 @@
+import Image from "next/image";
 import Link from "next/link";
 import { EMAIL, PHONE, REVIEWS, SOCIALS } from "../site";
-import { FooterLogoLiquid } from "./FooterLogoLiquid";
 import { CATEGORIES } from "../work/projects";
-import { SOLUTIONS as SOLUTION_PAGES } from "../solutions/solutions";
+import { SOLUTIONS } from "../solutions/solutions";
+import { Arrow } from "./Arrow";
+import { FooterLogoLiquid } from "./FooterLogoLiquid";
 
-const COMPANY = [
-  { label: "About us", href: "/about" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "Contacts", href: "/contact" },
-  { label: "Process", href: "/process" },
-] as const;
-
-const SOLUTIONS = SOLUTION_PAGES.map((s) => ({
-  label: s.label,
-  href: `/solutions/${s.slug}`,
-}));
-
-const RESOURCES = [
-  { label: "Blogs", href: "/blog" },
-  { label: "Work", href: "/projects" },
-] as const;
-
-const CASE_STUDIES = CATEGORIES.map((c) => ({
-  label: c.title,
-  href: `/case-studies/${c.slug}`,
-}));
+// Links and wording match the production footer exactly (protected content).
+const COLUMNS = [
+  {
+    title: "Company",
+    links: [
+      { label: "About us", href: "/about" },
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Contacts", href: "/contact" },
+      { label: "Process", href: "/process" },
+    ],
+  },
+  {
+    title: "Solutions",
+    href: "/solutions",
+    links: SOLUTIONS.map((s) => ({ label: s.label, href: `/solutions/${s.slug}` })),
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Blogs", href: "/blog" },
+      { label: "Work", href: "/case-studies" },
+    ],
+  },
+  {
+    title: "Case studies",
+    href: "/case-studies",
+    links: CATEGORIES.map((c) => ({ label: c.title, href: `/case-studies/${c.slug}` })),
+  },
+];
 
 const LOCATIONS = [
-  {
-    country: "USA",
-    address: "30 N Gould St, Ste R, Sheridan, WY 82801, United States",
-  },
-  {
-    country: "UK",
-    address: "66 Paul Street, London EC2A 4NA, United Kingdom",
-  },
+  { country: "USA", address: "30 N Gould St, Ste R, Sheridan, WY 82801, United States" },
+  { country: "UK", address: "66 Paul Street, London EC2A 4NA, United Kingdom" },
 ] as const;
-
-function ShowMore({ href }: { href: string }) {
-  return (
-    <Link href={href} className="footer-show-more">
-      Show more
-      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-        <path
-          d="M3 4.5 L6 7.5 L9 4.5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-      </svg>
-    </Link>
-  );
-}
-
-function Achievements() {
-  return (
-    <div className="footer-achievements">
-      <img
-        src="/OtherAssets/ClutchandGoogle.png"
-        alt="Clutch Top 1000 Companies and Google 5 Star Customer Rating"
-        className="footer-clutch-google"
-        loading="lazy"
-        decoding="async"
-      />
-      <img
-        src="/OtherAssets/Trustpilot.png"
-        alt="Trustpilot rating"
-        className="footer-trustpilot"
-        loading="lazy"
-        decoding="async"
-      />
-      <ul className="footer-reviews">
-        {REVIEWS.map((r) => {
-          const icon = (
-            <img src={r.icon} alt="" width={28} height={28} loading="lazy" decoding="async" />
-          );
-          return (
-            <li key={r.label}>
-              {r.href ? (
-                <a
-                  href={r.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Piermont Studios on ${r.label}`}
-                  title={r.label}
-                >
-                  {icon}
-                </a>
-              ) : (
-                <span title={r.label}>{icon}</span>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer" id="footer">
-      <div className="site-footer-inner">
-        <div className="footer-top">
-          <div className="footer-col">
-            <p className="footer-col-title">Achievements</p>
-            <Achievements />
-          </div>
+    <footer className="pm-footer">
+      <div className="pm-footer__inner">
+        <div className="pm-footer__lead">
+          <p className="pm-footer__tagline">Brands, websites &amp; ads built to grow.</p>
+          <Link href="/contact" className="pm-button">
+            Start a project
+            <Arrow />
+          </Link>
+        </div>
 
-          <div className="footer-col">
-            <p className="footer-col-title">Company</p>
-            <ul className="footer-links">
-              {COMPANY.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="pm-footer__columns">
+          {COLUMNS.map((col) => (
+            <div key={col.title} className="pm-footer__col">
+              <p className="pm-label">
+                {col.href ? (
+                  <Link href={col.href} className="pm-link">
+                    {col.title}
+                  </Link>
+                ) : (
+                  col.title
+                )}
+              </p>
+              <ul>
+                {col.links.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="pm-link">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {col.href ? (
+                <Link href={col.href} className="pm-footer__more pm-link">
+                  Show more
+                </Link>
+              ) : null}
+            </div>
+          ))}
+        </div>
 
-          <div className="footer-col">
-            <p className="footer-col-title">Solutions</p>
-            <ul className="footer-links">
-              {SOLUTIONS.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
+        <div className="pm-footer__facts">
+          <div>
+            <p className="pm-label">Locations</p>
+            <div className="pm-footer__locations">
+              {LOCATIONS.map((loc) => (
+                <div key={loc.country}>
+                  <p className="pm-footer__country">{loc.country}</p>
+                  <p className="pm-footer__address">{loc.address}</p>
+                </div>
               ))}
-            </ul>
-            <ShowMore href="/services" />
+            </div>
           </div>
-
-          <div className="footer-col">
-            <p className="footer-col-title">Resources</p>
-            <ul className="footer-links">
-              {RESOURCES.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
+          <div>
+            <p className="pm-label">Contact</p>
+            <p className="pm-footer__contact">
+              <a href={PHONE.href} className="pm-link">
+                {PHONE.display}
+              </a>
+              <a href={`mailto:${EMAIL}`} className="pm-link">
+                {EMAIL}
+              </a>
+            </p>
           </div>
-
-          <div className="footer-col">
-            <p className="footer-col-title">Case studies</p>
-            <ul className="footer-links">
-              {CASE_STUDIES.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
+          <div>
+            <p className="pm-label">Reviewed on</p>
+            <ul className="pm-footer__reviews">
+              {REVIEWS.map((r) => {
+                const icon = <Image src={r.icon} alt={r.label} width={28} height={28} />;
+                return (
+                  <li key={r.label}>
+                    {r.href ? (
+                      <a href={r.href} target="_blank" rel="noopener noreferrer">
+                        {icon}
+                      </a>
+                    ) : (
+                      icon
+                    )}
+                  </li>
+                );
+              })}
             </ul>
-            <ShowMore href="/projects" />
           </div>
         </div>
 
-        <div className="footer-block">
-          <p className="footer-block-label">
-            Locations
+        <div className="pm-footer__bottom">
+          <p>
+            Copyright © {new Date().getFullYear()} Piermont Studios Limited - All Rights Reserved
           </p>
-          <div className="footer-locations">
-            {LOCATIONS.map((loc) => (
-              <div key={loc.country} className="footer-location">
-                <p className="footer-country">{loc.country}</p>
-                <p className="footer-address">{loc.address}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="footer-block">
-          <p className="footer-block-label">
-            Contact
-          </p>
-          <div className="footer-contact-lines">
-            <a href={PHONE.href} className="footer-contact-line">
-              {PHONE.display}
-            </a>
-            <a href={`mailto:${EMAIL}`} className="footer-contact-line">
-              {EMAIL}
-            </a>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p className="footer-copy">
-            Copyright © 2026 Piermont. All rights reserved
-          </p>
-          <div className="footer-socials">
-            <span className="footer-socials-label">Socials:</span>
+          <p className="pm-footer__socials">
+            <span>Socials:</span>
             {SOCIALS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="pm-link"
               >
                 {item.label}
               </a>
             ))}
-          </div>
+          </p>
         </div>
 
         <FooterLogoLiquid />

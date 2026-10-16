@@ -2,10 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SITE_URL, pageMeta } from "../../site";
-import { HeroHeader } from "../../components/HeroHeader";
 import { LazyVideo } from "../../components/LazyVideo";
-import { SiteFooter } from "../../components/SiteFooter";
-import { getProject } from "../../work/projects";
+import { getProject, projectHref } from "../../work/projects";
 import { POSTS, getPost, postMedia } from "../posts";
 
 export const dynamicParams = false;
@@ -70,7 +68,6 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
       />
       <main id="main">
         <section className="about-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="about-hero-inner">
             <p className="about-kicker" data-reveal>
               {post.category}
@@ -120,7 +117,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 </li>
               ))}
             </ol>
-            <Link href={`/work/${project.slug}`} className="blog-all" data-reveal>
+            <Link href={projectHref(project)} className="blog-all" data-reveal>
               Read the {project.client} case study
               <span aria-hidden="true">↗</span>
             </Link>
@@ -148,10 +145,6 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

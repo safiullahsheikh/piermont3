@@ -2,8 +2,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { pageMeta } from "../../site";
-import { HeroHeader } from "../../components/HeroHeader";
-import { SiteFooter } from "../../components/SiteFooter";
 import { PROJECTS } from "../../work/projects";
 import { LazyVideo } from "../../components/LazyVideo";
 import { SOLUTIONS, getSolution } from "../solutions";
@@ -21,7 +19,7 @@ export async function generateMetadata({
   const solution = getSolution((await params).slug);
   if (!solution) return {};
   return pageMeta({
-    title: solution.label,
+    title: solution.metaTitle,
     description: solution.metaDescription,
     path: `/solutions/${solution.slug}`,
   });
@@ -39,7 +37,6 @@ export default async function SolutionPage({
     <>
       <main id="main">
         <section className="sol-hero hero-bg relative overflow-hidden">
-          <HeroHeader tone="light" />
           <div className="sol-hero-inner">
             <p
               className="sol-kicker"
@@ -240,10 +237,6 @@ export default async function SolutionPage({
           </div>
         </section>
       </main>
-
-      <div data-reveal="fade">
-        <SiteFooter />
-      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-// Case studies shown in the home Projects section and at /work/[slug].
+// Case studies shown in the home Projects section and at /case-studies/[category]/[slug].
 // `group` must match a sidebar label in ProjectsSection's CATEGORIES.
 // `focus` is the CSS object-position used when the image is cropped on cards.
 
@@ -990,14 +990,59 @@ export const PROJECTS: Project[] = [
 
 // Category pages at /case-studies/[slug]. `group` matches Project.group.
 export const CATEGORIES = [
-  { slug: "website-design", group: "WEBSITE DESIGN", title: "Website Design" },
-  { slug: "ui-ux-design", group: "UI/UX DESIGN", title: "UI/UX Design" },
-  { slug: "product-development", group: "PRODUCT DEVELOPMENT", title: "Product Development" },
-  { slug: "branding", group: "BRANDING", title: "Branding" },
-  { slug: "digital-marketing", group: "PERFORMANCE MARKETING", title: "Digital Marketing" },
-  { slug: "video-editing", group: "VIDEO EDITING", title: "Video Editing" },
+  {
+    slug: "website-design",
+    group: "WEBSITE DESIGN",
+    title: "Website Design",
+    intro:
+      "Marketing sites, product sites and online stores designed and built to load fast, read clearly and turn visitors into customers. Each case study walks through the brief, the structure we chose, the design decisions and how the finished site performs for the people who use it.",
+  },
+  {
+    slug: "ui-ux-design",
+    group: "UI/UX DESIGN",
+    title: "UI/UX Design",
+    intro:
+      "Interfaces for booking flows, marketplaces, apps and tools, designed around how people actually use them. These case studies show the research, user flows, interface design and prototyping behind each product, and the problems each design set out to solve.",
+  },
+  {
+    slug: "product-development",
+    group: "PRODUCT DEVELOPMENT",
+    title: "Product Development",
+    intro:
+      "Digital products taken from first idea to something people use every day, from mobile apps to developer tools. Each case study covers the product thinking, the design system, the build and the details that make the product feel simple to use.",
+  },
+  {
+    slug: "branding",
+    group: "BRANDING",
+    title: "Branding",
+    intro:
+      "Brand identities built around one clear idea, then carried through logo, colour, type and every place the brand shows up. These case studies show how each identity was found, designed and rolled out across web, social and print.",
+  },
+  {
+    slug: "digital-marketing",
+    group: "PERFORMANCE MARKETING",
+    title: "Digital Marketing",
+    intro:
+      "Paid social ad films and campaigns planned around a strong first second, a clear story and the product in frame. Each case study explains the creative idea, how it was shot and cut for each placement, and how versions were built for testing.",
+  },
+  {
+    slug: "video-editing",
+    group: "VIDEO EDITING",
+    title: "Video Editing",
+    intro:
+      "Edits, colour and effects for fashion films, beauty content, music visuals and short form video. These case studies look at the pacing, the cuts and the finishing work that make a piece hold attention and get watched again.",
+  },
 ];
 
 export function getProject(slug: string) {
   return PROJECTS.find((p) => p.slug === slug);
+}
+
+export function categoryOf(project: Project) {
+  return CATEGORIES.find((c) => c.group === project.group)!;
+}
+
+/** Live URL of a case study: /case-studies/<category>/<slug>. */
+export function projectHref(project: Project) {
+  return `/case-studies/${categoryOf(project).slug}/${project.slug}`;
 }
