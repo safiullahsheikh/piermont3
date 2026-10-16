@@ -445,7 +445,7 @@
   }
 }
 
-/* ---------- 02 Exploration: projects accordion ---------- */
+/* ---------- 02 Exploration: projects carousel ---------- */
 
 .pm-projects-ch .pm-chapter__shade {
   background: linear-gradient(var(--pm-abyss), rgb(4 10 23 / 0.25) 30%, rgb(4 10 23 / 0.25) 70%, var(--pm-abyss));
@@ -484,139 +484,41 @@
   color: var(--pm-mist);
 }
 
-.pm-acc {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pm-acc__item {
+/* React Bits FlexCarousel, full bleed. */
+.pm-flex {
   position: relative;
-  height: 4.25rem;
-  overflow: hidden;
-  border-radius: var(--pm-radius-md);
-  background: var(--pm-deep);
-  transition:
-    height var(--pm-dur-medium) var(--pm-ease-out),
-    flex-grow var(--pm-dur-medium) var(--pm-ease-out);
+  height: min(560px, 72svh);
+  margin-inline: calc(-1 * var(--pm-gutter));
 }
 
-.pm-acc__item[data-active] {
-  height: min(28rem, 64svh);
-}
-
-.pm-acc__link {
-  position: absolute;
-  inset: 0;
-  display: block;
-  color: var(--pm-foam);
-  text-decoration: none;
-}
-
-.pm-acc__link:focus-visible {
-  outline: var(--pm-focus-ring);
-  outline-offset: -3px;
-  border-radius: inherit;
-}
-
-.pm-acc__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.5) brightness(0.45);
-  scale: 1.12;
-  transition:
-    filter var(--pm-dur-medium) var(--pm-ease-out),
-    scale var(--pm-dur-long) var(--pm-ease-out);
-}
-
-.pm-acc__item[data-active] .pm-acc__img {
-  filter: none;
-  scale: 1;
-}
-
-/* Shade so the caption reads over any screenshot. */
-.pm-acc__link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent 35%, rgb(4 10 23 / 0.88));
-  pointer-events: none;
-}
-
-.pm-acc__tab {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  padding-inline: var(--pm-space-5);
+.pm-flex .flex-carousel__title {
   font-family: var(--pm-font-display);
-  font-size: var(--pm-text-lg);
-  font-variation-settings: "opsz" 14;
-  white-space: nowrap;
-  transition: opacity var(--pm-dur-short) linear;
+  font-size: var(--pm-text-xl);
+  font-weight: 400;
 }
 
-.pm-acc__item[data-active] .pm-acc__tab {
-  opacity: 0;
-}
-
-.pm-acc__info {
-  position: absolute;
-  inset: auto var(--pm-space-5) var(--pm-space-5);
-  z-index: 1;
-  display: grid;
-  gap: var(--pm-space-2);
-  opacity: 0;
-  translate: 0 1rem;
-  transition:
-    opacity var(--pm-dur-short) linear,
-    translate var(--pm-dur-medium) var(--pm-ease-out);
-}
-
-.pm-acc__item[data-active] .pm-acc__info {
-  opacity: 1;
-  translate: 0 0;
-  transition-delay: 150ms;
-}
-
-.pm-acc__meta {
-  display: flex;
-  gap: var(--pm-space-3);
-  font-family: var(--pm-font-display);
-  font-variant-caps: all-small-caps;
-  font-variant-numeric: lining-nums;
-  letter-spacing: var(--pm-tracking-label);
-  color: var(--pm-mist);
-}
-
-.pm-acc__client {
-  display: flex;
-  align-items: center;
-  gap: var(--pm-space-3);
-  font-family: var(--pm-font-display);
-  font-size: var(--pm-text-3xl);
-  font-variation-settings: "opsz" 72;
-  letter-spacing: var(--pm-tracking-display);
-  line-height: 1.05;
-}
-
-.pm-acc__service {
-  max-width: 34rem;
+.pm-flex .flex-carousel__subtitle {
+  font-family: var(--pm-font-sans);
   font-size: var(--pm-text-sm);
-  color: var(--pm-mist);
 }
 
-/* Above the tilted panels, whose near edge reaches past their box until the tilt settles. */
+/* The vendor traps scroll chaining; past one lap (vendor patch) the page must scroll on. */
+.pm-flex .flex-carousel {
+  overscroll-behavior: auto;
+}
+
+.pm-flex .flex-carousel:focus-visible {
+  box-shadow: none;
+  outline: var(--pm-focus-ring);
+  outline-offset: calc(-1 * var(--pm-focus-offset));
+}
+
+.pm-flex__open {
+  display: table;
+  margin: var(--pm-space-7) auto 0;
+}
+
 .pm-acc__end {
-  position: relative;
-  z-index: 1;
   margin-top: var(--pm-space-8);
 }
 
@@ -628,35 +530,6 @@
 
   .pm-acc__lead {
     grid-column: 1;
-  }
-
-  .pm-acc {
-    flex-direction: row;
-    height: min(78svh, 46rem);
-  }
-
-  .pm-acc__item,
-  .pm-acc__item[data-active] {
-    flex: 1 1 0;
-    height: auto;
-    min-width: 0;
-  }
-
-  .pm-acc__item[data-active] {
-    flex-grow: 9;
-  }
-
-  /* Collapsed: the client name runs up the sliver. */
-  .pm-acc__tab {
-    align-items: flex-end;
-    justify-content: center;
-    padding: var(--pm-space-5) 0;
-    writing-mode: vertical-rl;
-    rotate: 180deg;
-  }
-
-  .pm-acc__info {
-    inset: auto var(--pm-space-6) var(--pm-space-6);
   }
 }
 
@@ -697,13 +570,39 @@
   list-style: none;
 }
 
-/* Glass over water: the reef stays visible through each panel. */
+/* Each service over its own video (the production card media), darkened for the text.
+   No backdrop blur: the card's media covers what is behind it, and the blur cost frames. */
 .pm-service {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: var(--pm-space-6);
   border: 1px solid var(--pm-hairline);
   border-radius: var(--pm-radius-md);
-  background: rgb(4 10 23 / 0.5);
-  backdrop-filter: blur(16px) saturate(1.2);
+  background: rgb(4 10 23 / 0.85);
+}
+
+.pm-service__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.pm-service__media img,
+.pm-service__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pm-service__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Dark where the text sits, opening up to the footage on the right. */
+  background: linear-gradient(100deg, rgb(4 10 23 / 0.9) 30%, rgb(4 10 23 / 0.72) 65%, rgb(4 10 23 / 0.35));
 }
 
 .pm-service__meta {
@@ -742,65 +641,29 @@
   border-top: 1px solid var(--pm-hairline);
 }
 
-/* Option wheel (large screens with motion): a drum of service names beside the open panel. */
-.pm-wheel {
-  display: none;
-}
-
+/* Option wheel (large screens): React Bits OptionWheel beside the open panel. */
 .pm-svc.is-wheel {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   align-items: center;
   gap: var(--pm-space-8);
-  height: 100svh;
-  padding-bottom: var(--pm-header-h);
+  min-height: min(100svh, 48rem);
 }
 
-.pm-svc.is-wheel .pm-wheel {
-  display: grid;
-  place-items: center start;
-  height: 100%;
-  perspective: 1100px;
-  mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent);
+.pm-owheel {
+  height: min(80svh, 40rem);
+  mask-image: linear-gradient(transparent, #000 22%, #000 78%, transparent);
 }
 
-.pm-wheel__drum {
-  position: relative;
-  width: 100%;
-  height: 4.5rem;
-  transform: translateZ(-15rem);
-  transform-style: preserve-3d;
-}
-
-.pm-wheel__opt {
-  position: absolute;
-  inset: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--pm-foam);
+.pm-owheel .option-wheel__item {
   font-family: var(--pm-font-display);
-  font-size: var(--pm-text-3xl);
+  font-weight: 400;
   font-variation-settings: "opsz" 72;
   letter-spacing: var(--pm-tracking-display);
-  text-align: left;
-  white-space: nowrap;
-  cursor: pointer;
-  backface-visibility: hidden;
-  transform: rotateX(calc(var(--i) * -24deg)) translateZ(15rem);
 }
 
-.pm-wheel__opt[aria-selected="true"]::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -1.5rem;
-  width: 0.75rem;
-  height: 1px;
-  background: var(--pm-cobalt);
-}
-
-.pm-wheel__opt:focus-visible {
+/* The vendor removes the outline; keyboard users still need to see the wheel has focus. */
+.pm-owheel:focus-visible {
   outline: var(--pm-focus-ring);
   outline-offset: var(--pm-focus-offset);
 }
@@ -889,15 +752,6 @@
 
 .pm-home .pm-drift__mark:hover .blog-logo {
   filter: none;
-}
-
-/* ---------- Ghost cursor ---------- */
-
-.pm-ghost {
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
 }
 
 /* ---------- Social proof: production markup, recoloured for the dark descent ---------- */

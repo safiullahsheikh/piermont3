@@ -32,10 +32,11 @@
 
 | Item | Where | Licence | Verified |
 |---|---|---|---|
-| React Bits FlowingMenu, DomeGallery, GhostCursor (TS + CSS registry versions, lightly edited) | `app/vendor/react-bits/` | MIT + Commons Clause (use in sites allowed, resale of components not allowed); https://reactbits.dev | Yes |
+| React Bits FlowingMenu, DomeGallery, OptionWheel, FlexCarousel (TS + CSS registry versions, lightly edited) | `app/vendor/react-bits/` | MIT + Commons Clause (use in sites allowed, resale of components not allowed); https://reactbits.dev | Yes |
 | @use-gesture/react 10.3.1 (DomeGallery dependency) | npm | MIT | Yes |
 | DriftWall | `app/components/DriftWall.tsx` | Own code, written from the documented behaviour of https://21st.dev/@Legacy/components/driftwall (MIT); no source copied, the source needs a 21st.dev API key | Yes |
-| Option Wheel | `app/home/ServicesReef.tsx` | Own code, written from the documented behaviour of https://21st.dev/@amitgajare2/components/option-wheel (MIT); no source copied | Yes |
+| ogl 1.0.11 (FlexCarousel dependency) | npm | MIT | Yes |
+| Wheel click sound | `public/sounds/click-soft.mp3` | Own: a 45 ms 1400 Hz tone generated with ffmpeg | Yes |
 | Photos: pier lamps, pier at dusk, freediver | `public/media/` | Supplied by you; source pages not recorded | No (B14) |
 | Google Analytics 4 (only with your ID, only after Accept) | `app/components/Analytics.tsx` | Google Analytics terms | Yes |
 

@@ -1,131 +1,61 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { type KeyboardEvent, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Arrow } from "../components/Arrow";
 import { FootageSection } from "../components/Footage";
-import { gsap, ScrollTrigger, useGSAP } from "../motion/gsap";
+import { LazyVideo } from "../components/LazyVideo";
+import { gsap, useGSAP } from "../motion/gsap";
 import { useDeviceTier } from "../motion/tier";
+import { useSound } from "../sound/waves";
 import { SOLUTIONS } from "../solutions/solutions";
+import OptionWheel from "../vendor/react-bits/OptionWheel";
 import { SERVICES } from "./services";
 
-const STEP = 24; // degrees between options on the drum
-const LAST = SERVICES.length - 1;
+const TITLES = SERVICES.map((s) => s.title);
 
 /**
- * Chapter 03, The reef. On large screens the six services sit on an option wheel:
- * scrolling turns the drum and the service facing you opens beside it. Clicking an
- * option or using the arrow keys scrolls to it, so scroll stays the one source of
- * truth. Elsewhere the services are glass panels that tip up out of the water.
+ * Chapter 03, The reef. On large screens the six services sit on the React Bits option wheel
+ * (wheel, drag, click or arrow keys) and the chosen one opens beside it over its own video.
+ * Elsewhere the services are glass panels, each over its video, that tip up out of the water.
  * Then the five solutions.
  */
 export function ServicesReef() {
   const ref = useRef<HTMLDivElement>(null);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  const trigger = useRef<ScrollTrigger | null>(null);
   const tier = useDeviceTier();
+  const sound = useSound();
   const [wheel, setWheel] = useState(false);
   const [active, setActive] = useState(0);
 
   useGSAP(
     () => {
-      if (tier === "low") return;
       const mm = gsap.matchMedia();
-      mm.add(
-        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          setWheel(true);
-          const root = ref.current!;
-          const drum = root.querySelector<HTMLElement>(".pm-wheel__drum")!;
-          const opts = gsap.utils.toArray<HTMLElement>(".pm-wheel__opt", root);
-          trigger.current = ScrollTrigger.create({
-            trigger: root.querySelector(".pm-svc"),
-            pin: true,
-            start: "top top",
-            end: () => `+=${innerHeight * LAST * 0.7}`,
-            scrub: true,
-            invalidateOnRefresh: true,
-            onUpdate: (st) => {
-              const turn = st.progress * LAST;
-              drum.style.transform = `translateZ(-15rem) rotateX(${turn * STEP}deg)`;
-              opts.forEach(
-                (o, i) =>
-                  (o.style.opacity = String(
-                    Math.max(0.08, 1 - Math.abs(i - turn) * 0.38),
-                  )),
-              );
-              setActive(Math.round(turn));
+      mm.add("(min-width: 1024px)", () => {
+        setWheel(true);
+        return () => setWheel(false);
+      });
+      if (tier === "low") return;
+      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray<HTMLElement>(".pm-service", ref.current).forEach((el) => {
+          gsap.fromTo(
+            el,
+            { rotationX: 16, y: 90, transformPerspective: 1400, transformOrigin: "50% 100%" },
+            {
+              rotationX: 0,
+              y: 0,
+              ease: "none",
+              scrollTrigger: { trigger: el, start: "top bottom", end: "top 62%", scrub: 0.6 },
             },
-          });
-          return () => {
-            setWheel(false);
-            trigger.current = null;
-          };
-        },
-      );
-      mm.add(
-        "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.utils
-            .toArray<HTMLElement>(".pm-service", ref.current)
-            .forEach((el) => {
-              gsap.fromTo(
-                el,
-                {
-                  rotationX: 16,
-                  y: 90,
-                  transformPerspective: 1400,
-                  transformOrigin: "50% 100%",
-                },
-                {
-                  rotationX: 0,
-                  y: 0,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: el,
-                    start: "top bottom",
-                    end: "top 62%",
-                    scrub: 0.6,
-                  },
-                },
-              );
-            });
-        },
-      );
+          );
+        });
+      });
     },
     { scope: ref, dependencies: [tier] },
   );
 
-  const go = (i: number) => {
-    const st = trigger.current;
-    if (!st) return;
-    window.scrollTo({
-      top: st.start + (i / LAST) * (st.end - st.start) + 1,
-      behavior: "smooth",
-    });
-  };
-
-  const onKey = (e: KeyboardEvent) => {
-    const to = {
-      ArrowDown: active + 1,
-      ArrowUp: active - 1,
-      Home: 0,
-      End: LAST,
-    }[e.key];
-    if (to === undefined) return;
-    e.preventDefault();
-    const i = Math.max(0, Math.min(LAST, to));
-    tabs.current[i]?.focus();
-    go(i);
-  };
-
   return (
-    <FootageSection
-      name="reef"
-      mode="scrub"
-      className="pm-reef"
-      aria-labelledby="pm-services-title"
-    >
+    <FootageSection name="reef" mode="scrub" className="pm-reef" aria-labelledby="pm-services-title">
       <div ref={ref} className="pm-reef__inner">
         <header className="pm-reef__head">
           <p className="pm-label">Services</p>
@@ -134,48 +64,42 @@ export function ServicesReef() {
           </h2>
         </header>
         <div className={`pm-svc${wheel ? " is-wheel" : ""}`}>
-          {/* Hidden by CSS unless the wheel is on; it must exist before GSAP measures it. */}
-          <div
-            className="pm-wheel"
-            role="tablist"
-            aria-label="Services"
-            aria-orientation="vertical"
-            onKeyDown={onKey}
-          >
-            <div className="pm-wheel__drum">
-              {SERVICES.map((s, i) => (
-                <button
-                  key={s.title}
-                  ref={(el) => {
-                    tabs.current[i] = el;
-                  }}
-                  type="button"
-                  role="tab"
-                  id={`pm-svc-tab-${i}`}
-                  aria-selected={i === active}
-                  aria-controls={`pm-svc-${i}`}
-                  tabIndex={i === active ? 0 : -1}
-                  className="pm-wheel__opt"
-                  style={{ ["--i" as string]: i }}
-                  onClick={() => go(i)}
-                >
-                  {s.title}
-                </button>
-              ))}
-            </div>
-          </div>
-          <ol className="pm-services" role={wheel ? "none" : undefined}>
+          {wheel && (
+            <OptionWheel
+              items={TITLES}
+              defaultSelected={0}
+              onChange={(i) => setActive(i)}
+              ariaLabel="Services"
+              textColor="var(--pm-mist)"
+              activeColor="var(--pm-foam)"
+              side="left"
+              fontSize={3}
+              spacing={1.4}
+              curve={1}
+              tilt={6}
+              blur={2}
+              fade={0.25}
+              smoothing={200}
+              inset={80}
+              loop={false}
+              draggable
+              // The tick follows the site's sound switch: silent unless the visitor turned sound on.
+              soundUrl={sound ? "/sounds/click-soft.mp3" : ""}
+              soundVolume={0.5}
+              className="pm-owheel"
+            />
+          )}
+          <ol className="pm-services">
             {SERVICES.map((s, i) => (
-              <li
-                key={s.title}
-                className="pm-service"
-                {...(wheel && {
-                  id: `pm-svc-${i}`,
-                  role: "tabpanel",
-                  "aria-labelledby": `pm-svc-tab-${i}`,
-                  "data-active": i === active || undefined,
-                })}
-              >
+              <li key={s.title} className="pm-service" data-active={(wheel && i === active) || undefined}>
+                <div className="pm-service__media" aria-hidden="true">
+                  {"image" in s ? (
+                    <Image src={s.image} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" />
+                  ) : (
+                    // On the wheel only the open card's video decodes; hidden cards still count as on screen.
+                    tier !== "low" && (!wheel || i === active) && <LazyVideo src={s.video} className="pm-service__video" />
+                  )}
+                </div>
                 <p className="pm-service__meta">
                   <span>{s.tag.toLowerCase()}</span>
                   <span aria-hidden="true">{s.index}</span>
@@ -199,8 +123,7 @@ export function ServicesReef() {
               What we build
             </h2>
             <p className="pm-page__lead">
-              Five ways we help brands grow, each with its own team, process and
-              track record.
+              Five ways we help brands grow, each with its own team, process and track record.
             </p>
             <Link href="/solutions" className="pm-link">
               All solutions

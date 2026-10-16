@@ -1,9 +1,10 @@
-// Production homepage services (protected content: wording unchanged).
+// Production homepage services (protected content: wording unchanged). Media are the production card videos and image.
 export const SERVICES = [
   {
     tag: "FOUNDATION",
     index: "/01",
     title: "Brand Identity",
+    video: "/OtherAssets/BrandIdentityVideo.mp4",
     description: "Where every project starts: how your brand looks, sounds and feels.",
     items: [
       "Positioning and messaging frameworks",
@@ -17,6 +18,7 @@ export const SERVICES = [
     tag: "GROWTH",
     index: "/02",
     title: "Strategy",
+    video: "/OtherAssets/StretgyVideo.mp4",
     description: "Clear direction backed by insight and planning to move from idea to execution.",
     items: [
       "Market and audience research",
@@ -30,6 +32,7 @@ export const SERVICES = [
     tag: "CREATIVE",
     index: "/03",
     title: "Design & Innovation",
+    video: "/OtherAssets/DesignVideo.mp4",
     description: "From first concepts to polished products that people want to use and share.",
     items: [
       "UX and UI design",
@@ -43,6 +46,7 @@ export const SERVICES = [
     tag: "SMART AI",
     index: "/04",
     title: "AI Systems",
+    image: "/OtherAssets/Aisystemimage.jpg",
     description: "Practical uses of AI that make your products and daily work smarter.",
     items: [
       "AI plan and roadmap",
@@ -56,6 +60,7 @@ export const SERVICES = [
     tag: "DISCOVERABLE",
     index: "/05",
     title: "SEO",
+    video: "/OtherAssets/SEOVideo.mp4",
     description: "Help people find you on Google with the right structure, content and links.",
     items: [
       "Technical SEO audits",
@@ -69,6 +74,7 @@ export const SERVICES = [
     tag: "BUILD",
     index: "/06",
     title: "Development",
+    video: "/OtherAssets/DevelopmentVideo.mp4",
     description: "Turning ideas and designs into websites and apps that work and grow with you.",
     items: [
       "Web and app development",

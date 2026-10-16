@@ -24,11 +24,15 @@ export function Dome() {
       <div className="pm-dome__stage">
         <DomeGallery
           images={IMAGES}
+          // Settings from your reference, 2026-10-16.
+          fit={0.8}
+          minRadius={600}
+          maxVerticalRotationDeg={0}
+          segments={34}
+          dragDampening={2}
+          // Greyscale comes from one blend layer over the stage (shell.css), not a filter on every tile.
           grayscale={false}
           overlayBlurColor="#040a17"
-          fit={0.62}
-          minRadius={520}
-          segments={30}
           imageBorderRadius="14px"
           openedImageBorderRadius="14px"
           openedImageWidth="min(70vw, 720px)"

@@ -28,3 +28,5 @@ Proposed copy ships to the preview branch and is approved at the phase gate. Tes
 | Footer | (no legal links) | "Privacy policy", "Terms of use" | Links the new pages | 1D | Proposed |
 | Navigation | Bar with Home, Solutions, Work, About, Contact, "Start a project" and "Menu" | Pill with logo, sound and a three-line button named "Menu" ("Close menu" when open) | Your instruction, 2026-10-16 | 1D | Proposed |
 | Category pages, project ring | Project grid | Ring carousel; buttons "Previous project" / "Next project"; caption shows the front client and service | Your instruction, 2026-10-16 | 1D | Proposed |
+| Home projects, carousel | Accordion | React Bits FlexCarousel; screen reader label "Featured projects"; captions client and service; link "View [client]" under it | Your instruction, 2026-10-16 | 1D | Proposed |
+| Home services, wheel | Own option wheel | React Bits OptionWheel, labelled "Services" | Your instruction, 2026-10-16 | 1D | Proposed |

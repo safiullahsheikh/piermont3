@@ -699,7 +699,18 @@ html:has(.pm-menu[open]) {
 
 .pm-dome__stage {
   position: relative;
+  isolation: isolate;
   height: 100svh;
+}
+
+/* Greyscale for the whole globe in one compositing pass (a filter per tile cost frames). */
+.pm-dome__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  mix-blend-mode: saturation;
+  pointer-events: none;
 }
 
 /* Vertical swipes scroll the page (which turns the globe); sideways drags turn it directly. */

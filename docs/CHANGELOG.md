@@ -1,5 +1,16 @@
 # Changelog
 
+## React Bits wheel and carousel, card media, cursor removed, frame rate (2026-10-16)
+
+- Home services: the React Bits OptionWheel with your settings (side left, font size 3, tilt 6, blur 2, fade 0.25 and so on) on 1024 px and up. Mouse wheel, drag, click or arrow keys turn it; at either end the wheel hands back to the page. Its click plays only when the site sound is on (`/sounds/click-soft.mp3`, a short tone made with ffmpeg).
+- Service cards have their production media back: Brand Identity, Strategy, Design & Innovation, SEO and Development videos, the AI Systems image, under a dark scrim.
+- Home projects: the accordion is replaced by the React Bits FlexCarousel with your settings (liquid preset, rise intro, twist curl, wheel capture). After one full lap of the wheel the page scrolls on. A link under it names the project in front. Low-power devices get a plain grid.
+- `/case-studies` dome uses your settings: fit 0.8, min radius 600, no vertical tilt, 34 segments, drag dampening 2, greyscale.
+- Cursor effects removed on your instruction (blob and ghost); the normal pointer everywhere.
+- Frame rate: only the open service card's video decodes (all six used to play at once); no backdrop blur behind the service cards; the dome's greyscale is one blend layer instead of a filter on every tile. Measured in headless Chrome on this machine (i7-8650U, integrated graphics): home scroll 54 fps average, dome 60 fps.
+
+**Verified:** build (62 pages), lint (0 errors, 1 pre-existing warning), type-check; wheel by mouse wheel, click and keys; carousel by wheel and keys, lap release; card media at 1440 and 375; dome; no console errors.
+
 ## Navigation pill and media fix (2026-10-16)
 
 - `/case-studies`: the dome is now a full-screen globe. Scrolling through it turns it a full 360 (CSS scroll timeline; browsers without one get drag only); dragging still turns it.
