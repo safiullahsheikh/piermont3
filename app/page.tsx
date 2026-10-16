@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { ContactSection } from "./components/ContactSection";
-import { GlitchHeadline } from "./components/GlitchHeadline";
-import { HeroComputer } from "./components/HeroComputer";
-import { HomeVideo } from "./components/HomeVideo";
-import { ProjectsSection } from "./components/ProjectsSection";
-import { ServicesSection } from "./components/ServicesSection";
+import { FootageSection } from "./components/Footage";
 import { StoriesSection } from "./components/StoriesSection";
 import { TestimonialsSection } from "./components/TestimonialsSection";
+import { DepthGauge } from "./home/DepthGauge";
+import { HomeHero } from "./home/HomeHero";
+import { ProjectsDepth } from "./home/ProjectsDepth";
+import { ServicesReef } from "./home/ServicesReef";
 import { EMAIL, PHONE, SITE_URL, SOCIALS } from "./site";
 
 export const metadata: Metadata = {
@@ -54,45 +52,18 @@ export default function Home() {
           __html: JSON.stringify(ORGANIZATION_LD).replace(/</g, "\\u003c"),
         }}
       />
-      <main id="main">
-        <section className="hero-bg relative flex h-svh min-h-[34rem] flex-col overflow-hidden">
-
-          <div className="hero-main relative z-10 flex min-h-0 flex-1 flex-col items-center px-5 sm:px-8">
-            <div className="hero-headline-wrap shrink-0">
-              <GlitchHeadline />
-            </div>
-
-            <div className="hero-computer-wrap">
-              <HeroComputer />
-            </div>
-          </div>
-
-          <nav className="anim-bar hero-cta-bar" aria-label="Primary">
-            <Link href="/" className="hero-cta-logo" aria-label="Home">
-              <Image
-                src="/MainLogo.png"
-                alt="Piermont Studios"
-                width={140}
-                height={58}
-                priority
-                className="hero-cta-logo-img"
-              />
-            </Link>
-            <a href="/contact" className="hero-cta-btn">
-              Start Project
-            </a>
-          </nav>
-        </section>
-
-        <HomeVideo />
-
-        <ProjectsSection />
-        <ServicesSection />
-        <div data-reveal="fade">
+      <main id="main" className="pm-home">
+        <HomeHero />
+        <ProjectsDepth />
+        <ServicesReef />
+        <div className="pm-home__proof">
           <TestimonialsSection />
+          <StoriesSection />
         </div>
-        <StoriesSection />
-        <ContactSection />
+        <FootageSection name="ascent" mode="scrub" className="pm-ascent">
+          <ContactSection />
+        </FootageSection>
+        <DepthGauge />
       </main>
     </>
   );

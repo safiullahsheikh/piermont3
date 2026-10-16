@@ -1,0 +1,8 @@
+public/footage/**  filter=lfs diff=lfs merge=lfs -text
+public/media/**    filter=lfs diff=lfs merge=lfs -text
+assets-src/**      filter=lfs diff=lfs merge=lfs -text
+*.blend            filter=lfs diff=lfs merge=lfs -text
+*.glb              filter=lfs diff=lfs merge=lfs -text
+*.ktx2             filter=lfs diff=lfs merge=lfs -text
+*.exr              filter=lfs diff=lfs merge=lfs -text
+*.hdr              filter=lfs diff=lfs merge=lfs -text

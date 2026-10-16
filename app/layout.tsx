@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Press_Start_2P } from "next/font/google";
 import localFont from "next/font/local";
 import { CookieBanner } from "./components/CookieBanner";
-import { LOADER_SCRIPT, LoadingScreen } from "./components/LoadingScreen";
+import { Loader, LOADER_SCRIPT } from "./components/Loader";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
 import { MotionRoot } from "./motion/MotionRoot";
@@ -66,20 +65,6 @@ const bodoni = localFont({
   variable: "--font-bodoni",
   display: "swap",
   adjustFontFallback: "Times New Roman",
-});
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  // Only the service cards use it, well below the fold.
-  preload: false,
-});
-
-const pressStart = Press_Start_2P({
-  variable: "--font-pixel",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 const DESCRIPTION =
@@ -149,14 +134,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${figtree.variable} ${bodoni.variable} ${fragmentMono.variable} ${cormorant.variable} ${pressStart.variable} antialiased`}
+      className={`${figtree.variable} ${bodoni.variable} ${fragmentMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOADER_SCRIPT }} />
       </head>
       <body className="min-h-dvh font-sans">
-        <LoadingScreen />
+        <Loader />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

@@ -12,7 +12,8 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "audit": "node scripts/audit.mjs",
-    "audit:lighthouse": "npx -y lighthouse@12.8.2 http://localhost:3000/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=html --output=json --output-path=./.lighthouse/home --chrome-flags=--headless=new"
+    "audit:lighthouse": "npx -y lighthouse@12.8.2 http://localhost:3000/ --form-factor=mobile --only-categories=performance,accessibility,best-practices,seo --output=html --output=json --output-path=./.lighthouse/home --chrome-flags=--headless=new",
+    "check": "node scripts/check-tier.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

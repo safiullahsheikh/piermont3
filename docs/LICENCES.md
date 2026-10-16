@@ -6,8 +6,8 @@
 |---|---|---|---|
 | Figtree | `public/Font/figtree` | SIL OFL 1.1 (`OFL.txt` included) | Yes, file present |
 | Fragment Mono | `public/Font/fragment-mono` | SIL OFL 1.1 (`OFL.txt` included) | Yes, file present |
-| Cormorant Garamond | `next/font/google` | SIL OFL 1.1 | Google Fonts |
-| Press Start 2P | `next/font/google` | SIL OFL 1.1 | Google Fonts |
+| Cormorant Garamond | `next/font/google` | SIL OFL 1.1 | Google Fonts (removed in 1C) |
+| Press Start 2P | `next/font/google` | SIL OFL 1.1 | Google Fonts (removed in 1C) |
 | Client and brand logos (`public/brands`, `public/logos`) | Stories marquee | Third-party trademarks; use depends on a client relationship | Pending (open question 2) |
 | Project stills and videos | `public/projects` | Studio work product | Pending (open question 2) |
 
@@ -20,6 +20,13 @@
 | @gsap/react | npm | MIT | Yes |
 | axe-core | npm, dev only | MPL-2.0 | Yes |
 | puppeteer-core | npm, dev only | Apache-2.0 | Yes |
+
+## Added in Phase 1C/1D
+
+| Item | Where | Licence | Verified |
+|---|---|---|---|
+| Footage: pier, water, diver, coral reef, bubbles | `assets/` (sources, not committed), `public/footage/` (encodes) | Supplied by you; source pages not recorded | No (B14) |
+| Sea-wave sound | `app/sound/waves.ts` | Synthesised in the browser; no recording, no licence needed | Yes |
 
 ## Planned (verified in Phase 0, added only when used)
 

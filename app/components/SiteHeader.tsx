@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { EMAIL, PHONE } from "../site";
 import { Arrow } from "./Arrow";
+import { SoundToggle } from "./SoundToggle";
 
 /** Inline desktop navigation. */
 const PRIMARY = [
@@ -45,6 +46,17 @@ export function SiteHeader() {
   const menuRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  // Over the home hero the bar is clear so the footage runs edge to edge.
+  const [clear, setClear] = useState(true);
+  const home = pathname === "/";
+
+  useEffect(() => {
+    if (!home) return;
+    const update = () => setClear(window.scrollY < window.innerHeight * 0.6);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [home]);
 
   const openMenu = () => {
     menuRef.current?.showModal();
@@ -61,7 +73,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="pm-header">
+      <header className="pm-header" data-clear={(home && clear) || undefined}>
         <Logo />
         <nav className="pm-header__nav" aria-label="Primary">
           <ul>
@@ -79,6 +91,7 @@ export function SiteHeader() {
           </ul>
         </nav>
         <div className="pm-header__actions">
+          <SoundToggle className="pm-header__sound" />
           <Link href="/contact" className="pm-button pm-header__cta">
             Start a project
             <Arrow />

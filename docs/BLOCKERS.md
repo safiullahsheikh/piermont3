@@ -23,3 +23,9 @@
 | B13 | Palette: brief section 3.2 (navy, cobalt) used over the general ash-grey preference | All | Colour direction | Say "ash grey" to switch; tokens live in `app/styles/tokens.css` | Assumption |
 | B14 | Footage source URLs and licences not recorded | 1C | Licence must be verifiable | Add the page URL for each clip to `docs/LICENCES.md` | Open |
 
+## Found in Phase 1C/1D
+
+| ID | Issue | Phase | Impact | Workaround | Status |
+|---|---|---|---|---|---|
+| B15 | Loader differs from brief 4.2: the raster logo is revealed with a wipe, not drawn as a vector stroke; the sequence runs about 5 s because of the five welcome words | 1C | Brief deviation | Vector trace on approval (B8); words were your instruction | Noted |
+| B16 | Loader progress is time-based (CSS), not tied to asset loading; there is no percentage | 1C | Brief 4.2 asks progress to reflect real loading | The page never waits on it; skip and 6.5 s timeout | Noted |
