@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectRing } from "../../components/ProjectRing";
 import { CtaBand } from "../../components/CtaBand";
 import { Reveal } from "../../motion/Reveal";
 import { pageMeta } from "../../site";
-import { CATEGORIES, PROJECTS } from "../../work/projects";
+import { CATEGORIES, PROJECTS, projectHref } from "../../work/projects";
 import { CategoryNav } from "../CategoryNav";
 
 export const dynamicParams = false;
@@ -55,6 +56,14 @@ export default async function CategoryPage({
           Projects <span className="pm-filter__count">{projects.length}</span>
         </h2>
         <ProjectRing projects={projects} />
+        <ul className="pm-ring-list pm-page__inner">
+          {projects.map((p) => (
+            <li key={p.slug}>
+              <Link href={projectHref(p)}>{p.client}</Link>
+              <span>{p.service}</span>
+            </li>
+          ))}
+        </ul>
       </section>
       <CtaBand />
     </main>

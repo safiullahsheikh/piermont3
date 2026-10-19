@@ -79,6 +79,8 @@ for (const page of baseline) {
     await tab.close();
     continue;
   }
+  // Let entrance animations (title blur-ins, reveals) finish; axe checks the settled page.
+  await new Promise((r) => setTimeout(r, 1500));
   await tab.addScriptTag({ content: axeSource });
   const result = await tab.evaluate(async () => {
     const r = await window.axe.run(document, {

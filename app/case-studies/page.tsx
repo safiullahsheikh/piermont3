@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Arrow } from "../components/Arrow";
 import { CtaBand } from "../components/CtaBand";
-import { Reveal } from "../motion/Reveal";
+import { WorkCard } from "../components/WorkGrid";
 import { pageMeta } from "../site";
-import { CATEGORIES, PROJECTS } from "../work/projects";
-import { CategoryNav } from "./CategoryNav";
+import { TextEffect } from "../vendor/21st/text-effect";
+import { CATEGORIES, PROJECTS, categoryOf } from "../work/projects";
 import { Dome } from "./Dome";
+import { WorkFilter } from "./WorkFilter";
 
 export const metadata: Metadata = pageMeta({
   title: "Case Studies by Service",
@@ -15,44 +14,44 @@ export const metadata: Metadata = pageMeta({
   path: "/case-studies",
 });
 
+/** Every case study: the dome to explore, then the grid filtered by service, the main way to browse. */
 export default function CaseStudiesPage() {
+  const tabs = [
+    { id: "all", label: "All", count: PROJECTS.length },
+    ...CATEGORIES.map((c) => ({
+      id: c.slug,
+      label: c.title,
+      count: PROJECTS.filter((p) => p.group === c.group).length,
+      intro: c.intro,
+      href: `/case-studies/${c.slug}`,
+    })),
+  ];
+  const items = PROJECTS.map((p) => ({ key: p.slug, group: categoryOf(p).slug, card: <WorkCard project={p} as="article" /> }));
+
   return (
-    <main id="main" className="pm-page">
-      <Reveal className="pm-page__inner">
+    <main id="main" className="pm-page pm-work">
+      <header className="pm-page__inner">
         <p className="pm-label">Our work</p>
-        <h1 className="pm-page__title">Case studies</h1>
+        <TextEffect as="h1" per="word" preset="blur" className="pm-page__title">
+          Case studies
+        </TextEffect>
         <p className="pm-page__lead">
-          {PROJECTS.length} projects across {CATEGORIES.length} services. Pick a discipline to see
-          the brief, the process and the result for each client.
+          {PROJECTS.length} projects across {CATEGORIES.length} services. Pick one to see the brief, the
+          process and the result for each client.
         </p>
-      </Reveal>
+        <p className="pm-work__skip">
+          <a href="#browse" className="pm-link">
+            Skip the gallery to the list
+          </a>
+        </p>
+      </header>
       <Dome />
-      <Reveal className="pm-page__inner">
-        <CategoryNav />
-        <ol className="pm-index">
-          {CATEGORIES.map((c, i) => {
-            const projects = PROJECTS.filter((p) => p.group === c.group);
-            return (
-              <li key={c.slug} data-reveal="fade">
-                <Link href={`/case-studies/${c.slug}`} className="pm-index__link">
-                  <span className="pm-index__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="pm-index__name">{c.title}</span>
-                  <span className="pm-index__desc">
-                    {projects.length} case studies ·{" "}
-                    {projects
-                      .slice(0, 3)
-                      .map((p) => p.client)
-                      .join(", ")}
-                  </span>
-                  <Arrow />
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
-      </Reveal>
+      <section id="browse" className="pm-page__inner pm-work__browse" aria-labelledby="pm-work-browse">
+        <h2 id="pm-work-browse" className="pm-work__h2">
+          Browse by service
+        </h2>
+        <WorkFilter tabs={tabs} items={items} />
+      </section>
       <CtaBand />
     </main>
   );

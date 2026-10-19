@@ -85,13 +85,13 @@ a:hover > .pm-arrow {
   translate: 4px 0;
 }
 
-:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols) :focus-visible {
+:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols, .pm-case) :focus-visible {
   outline: var(--pm-focus-ring);
   outline-offset: var(--pm-focus-offset);
   border-radius: var(--pm-radius-sm);
 }
 
-:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols) .pm-button:focus-visible {
+:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols, .pm-case) .pm-button:focus-visible {
   border-radius: var(--pm-radius-pill);
 }
 
@@ -935,6 +935,10 @@ html:has(.pm-menu[open]) {
 .pm-ring__card img {
   object-fit: cover;
   pointer-events: none;
+}
+
+.pm-ring__card:not([data-front]) {
+  cursor: pointer;
 }
 
 .pm-ring__name {

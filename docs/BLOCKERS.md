@@ -39,4 +39,13 @@
 | B19 | Brief asks for a Spline icon per service | 2 | Spline has no authoring API (B3) | Each page uses production's own hero visual, rebuilt live with the 21st.dev Tilt and Spotlight | Noted |
 | B20 | Brief asks for a Blender-rendered hero still in each service's lighting | 2 | No Blender here (B1) | CSS light shafts in each solution's colour; a still can drop in behind them later | Open |
 | B21 | Brief allows FAQs only if they add information | 2 | None exist in the content | No FAQ sections; add when you supply real questions | Noted |
-| B22 | Two audit failures outside the old bodies: home option wheel options fade below 4.5:1 by design (fade 0.25); `/case-studies/[category]` ring cards have one target under 24 px | 1D, 3, 7 | Accessibility | Ring rebuilt in Phase 3; the wheel's fade is weighed against contrast in Phase 7 | Open |
+| B22 | Home option wheel options fade below 4.5:1 by design (fade 0.25) | 1D, 7 | Accessibility | Weighed against contrast in Phase 7 (the ring target size part was fixed in Phase 3) | Open |
+
+## Found in Phase 3
+
+| ID | Issue | Phase | Impact | Workaround | Status |
+|---|---|---|---|---|---|
+| B23 | Brief asks for the dome in Blender geometry on the R3F runtime with keyboard navigation | 3 | You chose the React Bits DomeGallery (CSS 3D) | Dome is pointer and touch only; the filtered grid is the keyboard and screen reader path to every project | Noted |
+| B24 | No case study publishes measured results (traffic, conversion, revenue) | 3 | Outcomes are qualitative, as on production | Shown as written; no figures estimated. Add real numbers to `app/work/projects.ts` if you have them | Open |
+| B25 | Blender device-mockup renders of the screenshots | 3 | No Blender here (B1) | Screenshots and videos shown at their own shape in a rounded frame | Open |
+| B26 | Home projects carousel is WebGL (FlexCarousel), so its cards cannot morph into case studies | 3 | Brief asks for a shared-element transition from the coverflow | Morph runs from the grid, solution pages and category ring; the home low-power grid morphs too | Noted |

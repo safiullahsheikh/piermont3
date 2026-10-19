@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, type CSSProperties } from "react";
+import { ViewTransition, useRef, useState, type CSSProperties } from "react";
 import { projectHref, type Project } from "../work/projects";
 import { Arrow } from "./Arrow";
+import { morphName } from "./WorkGrid";
 
 // A ring needs enough cards to close; short lists repeat (repeats are hidden from assistive tech).
 const MIN_SLOTS = 8;
 // Degrees of turn per pixel dragged.
 const DRAG = 0.22;
 
-/** Projects on a 3D ring: drag or swipe sideways, use the arrows, or Tab through the cards. */
+/** Projects on a 3D ring: drag or swipe sideways, use the arrows, or click a side card to bring it round. */
 export function ProjectRing({ projects }: { projects: Project[] }) {
   const reps = Math.ceil(MIN_SLOTS / projects.length);
   const slots = Array.from({ length: projects.length * reps }, (_, i) => projects[i % projects.length]);
@@ -62,7 +63,10 @@ export function ProjectRing({ projects }: { projects: Project[] }) {
         }}
         // A drag that ends on a card is not a click.
         onClickCapture={(e) => {
-          if (moved.current) e.preventDefault();
+          if (moved.current) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
           moved.current = false;
         }}
       >
@@ -72,6 +76,22 @@ export function ProjectRing({ projects }: { projects: Project[] }) {
         >
           {slots.map((p, i) => {
             const repeat = i >= projects.length;
+            const inner = (
+              <>
+                <Image src={p.image} alt={repeat ? "" : p.alt} fill sizes="(max-width: 768px) 70vw, 26rem" style={{ objectPosition: p.focus }} draggable={false} />
+                <span className="pm-ring__name">{p.client}</span>
+              </>
+            );
+            // Only the front card is a link (its neighbours overlap it, too small a target);
+            // clicking a side card turns it to the front. The list below links every project.
+            const link =
+              i === front ? (
+                <Link href={projectHref(p)} draggable={false}>
+                  {inner}
+                </Link>
+              ) : (
+                <a>{inner}</a>
+              );
             return (
               <li
                 key={i}
@@ -79,16 +99,10 @@ export function ProjectRing({ projects }: { projects: Project[] }) {
                 style={{ "--i": i } as CSSProperties}
                 data-front={i === front || undefined}
                 aria-hidden={repeat || undefined}
+                onClick={i === front ? undefined : () => turnTo(i)}
               >
-                <Link
-                  href={projectHref(p)}
-                  tabIndex={repeat ? -1 : undefined}
-                  draggable={false}
-                  onFocus={() => turnTo(i)}
-                >
-                  <Image src={p.image} alt={repeat ? "" : p.alt} fill sizes="(max-width: 768px) 70vw, 26rem" style={{ objectPosition: p.focus }} draggable={false} />
-                  <span className="pm-ring__name">{p.client}</span>
-                </Link>
+                {/* Repeats share a project, and a view transition name must be unique. */}
+                {repeat ? link : <ViewTransition name={morphName(p)} share="pm-morph" default="none">{link}</ViewTransition>}
               </li>
             );
           })}

@@ -32,7 +32,8 @@ export function Dome() {
   const tier = useDeviceTier();
   if (tier === "low") return null;
   return (
-    <section className="pm-dome" aria-label="Every project, as a gallery">
+    // Pointer and touch only; keyboard and screen reader visitors get every project in the grid below.
+    <div className="pm-dome" aria-hidden="true">
       <div className="pm-dome__stage">
         <DomeGallery
           images={ITEMS}
@@ -53,6 +54,6 @@ export function Dome() {
           Move to turn, click to play
         </p>
       </div>
-    </section>
+    </div>
   );
 }

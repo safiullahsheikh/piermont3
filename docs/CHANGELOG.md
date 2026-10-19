@@ -1,5 +1,18 @@
 # Changelog
 
+## Phase 3: Work and case studies (2026-10-19)
+
+- `/case-studies`: the dome stays as the opening moment; under it, a grid of all 25 case studies filtered by service is now the main way to browse. The service tabs use the 21st.dev AnimatedBackground pill (spring from its demo); after a change the cards rise in with the 21st.dev AnimatedGroup image-grid variants. Arrow keys, Home and End move between tabs. Each service shows its intro and a link to its page. A "Skip the gallery to the list" link sits above the dome.
+- Dome: pointer and touch only, and hidden from assistive tech. Upstream every tile, repeats included, was a tab stop with no key action; keyboard and screen reader visitors now go straight to the grid.
+- Card to case study: a project's card (grid, solution pages, category ring) morphs into the case study's hero media on click, with React's ViewTransition (built into this Next version, no extra library). Instant under reduced motion; browsers without view transitions just navigate.
+- Case studies rebuilt on the new tokens, same frame for all 25: breadcrumb, client (word-by-word blur-in), tagline, client/service/category, the work at its own shape, the challenge, the numbered steps, the outcome, "More [service] work", next case study, call to action. Content unchanged.
+- Category pages: only the front ring card is a link; clicking a side card turns it to the front. Under the ring, every project in the category as a plain link with its service.
+- `npm run audit` waits 1.5 s for entrance animations before running axe.
+
+**Verified:** build (62 pages), lint, type-check; 1440 and 375 px with no console errors or sideways scroll; tabs by click, arrows and Home; morph from grid and ring (transition ran and finished, names paired); ring side click and front click; dome click still opens the video; Tab order skips the dome; canonical, Open Graph and Twitter tags on case studies; `npm run audit` has no failures on any work page.
+
+**Known failures:** B11 (old page bodies), B22 (home wheel fade).
+
 ## Phase 2: Solutions (2026-10-19)
 
 - `/solutions` overview explains the offering as a system: the problem each solution answers, what it is, how many case studies back it (with three of them shown), the six disciplines behind all five, and the six-phase process with durations, linking to `/process`. The coral reef footage, cut from the home page, opens it.

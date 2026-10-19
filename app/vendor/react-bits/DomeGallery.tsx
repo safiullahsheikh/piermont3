@@ -789,17 +789,16 @@ export default function DomeGallery({
                   } as React.CSSProperties
                 }
               >
+                {/* Piermont: pointer only (no role/tabIndex). Upstream tiles were buttons with no key
+                    handler, and every repeat was a tab stop; the page's grid is the keyboard path. */}
                 <div
                   className="item__image"
-                  role="button"
-                  tabIndex={0}
-                  aria-label={it.alt || 'Open image'}
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
                   onPointerEnter={playTile}
                   onPointerLeave={stopTile}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  <img src={it.src} draggable={false} alt="" />
                 </div>
               </div>
             ))}

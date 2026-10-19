@@ -3,6 +3,7 @@
 @import "./styles/shell.css";
 @import "./styles/home.css";
 @import "./styles/solutions.css";
+@import "./styles/work.css";
 
 :root {
   --background: #fdfbf7;

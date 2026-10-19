@@ -46,7 +46,7 @@ export default async function SolutionPage({ params }: PageProps<"/solutions/[sl
     <main id="main" className="pm-sol" data-solution={solution.slug}>
       <section className="pm-sol-hero">
         <div className="pm-sol-hero__copy">
-          <nav aria-label="Breadcrumb" className="pm-sol-hero__crumbs">
+          <nav aria-label="Breadcrumb" className="pm-crumbs">
             <Link href="/solutions">Solutions</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{solution.label}</span>
