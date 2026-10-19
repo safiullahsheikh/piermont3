@@ -31,3 +31,12 @@
 | B16 | Loader progress is time-based (CSS), not tied to asset loading; there is no percentage | 1C | Brief 4.2 asks progress to reflect real loading | The page never waits on it; skip and 6.5 s timeout | Noted |
 | B17 | Contact form keys not set locally (`NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`) | 1D, 6 | Form cannot send locally, so the thank-you redirect is untested end to end | Assumed set in Cloudflare for production; confirm | Open |
 | B18 | DriftWall and Option Wheel sources on 21st.dev need an API key | 1D | Built from their documented behaviour instead | A 21st.dev API key lets the originals be compared | Noted |
+
+## Found in Phase 2
+
+| ID | Issue | Phase | Impact | Workaround | Status |
+|---|---|---|---|---|---|
+| B19 | Brief asks for a Spline icon per service | 2 | Spline has no authoring API (B3) | Each page uses production's own hero visual, rebuilt live with the 21st.dev Tilt and Spotlight | Noted |
+| B20 | Brief asks for a Blender-rendered hero still in each service's lighting | 2 | No Blender here (B1) | CSS light shafts in each solution's colour; a still can drop in behind them later | Open |
+| B21 | Brief allows FAQs only if they add information | 2 | None exist in the content | No FAQ sections; add when you supply real questions | Noted |
+| B22 | Two audit failures outside the old bodies: home option wheel options fade below 4.5:1 by design (fade 0.25); `/case-studies/[category]` ring cards have one target under 24 px | 1D, 3, 7 | Accessibility | Ring rebuilt in Phase 3; the wheel's fade is weighed against contrast in Phase 7 | Open |

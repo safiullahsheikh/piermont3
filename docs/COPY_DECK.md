@@ -30,3 +30,12 @@ Proposed copy ships to the preview branch and is approved at the phase gate. Tes
 | Category pages, project ring | Project grid | Ring carousel; buttons "Previous project" / "Next project"; caption shows the front client and service | Your instruction, 2026-10-16 | 1D | Proposed |
 | Home projects, carousel | Accordion | React Bits FlexCarousel; screen reader label "Featured projects"; captions client and service; link "View [client]" under it | Your instruction, 2026-10-16 | 1D | Proposed |
 | Home services, wheel | Own option wheel | React Bits OptionWheel, labelled "Services" | Your instruction, 2026-10-16 | 1D | Proposed |
+| Solution page titles | "WEBSITE DEVELOPMENT", "SOCIAL MEDIA DESIGN", "AD CAMPAIGNS", "AI DEVELOPMENT", "BRAND IDENTITY" (two lines, capitals) | Same words, title case, one heading | Brief 3.3 type rules; no all-caps headings | 2 | Proposed |
+| `/solutions` items | (none) | "Your site looks fine but doesn’t bring in business.", "Your posts get scrolled past.", "Your ads get views, not customers.", "Your team repeats the same work every day.", "People can’t tell you apart from the rest." | Brief: name the typical problem each solution answers; no new claims | 2 | Proposed |
+| `/solutions` items | (none) | "{n} case studies" link to the category | Real counts from the project list | 2 | Proposed |
+| `/solutions` sections | (none) | "The team" / "The disciplines we bring" (the six home service cards); "How we work" / "Six phases, one team, no surprises." with the `/process` phases and durations; "Not sure which you need? Tell us about the project and we’ll point you the right way." | Explains the offering as a system; reuses existing copy | 2 | Proposed |
+| Solution pages, deliverables | "In every build" | "In every project" | Social, ads and branding are not builds | 2 | Proposed |
+| Solution pages, work | "Selected work" label | Label removed; "View all" link to the category added | The heading already says it; links to the full category | 2 | Proposed |
+| Solution pages | (none) | Breadcrumb "Solutions / [name]"; "See work" jumps to the projects; "Other solutions" / "All solutions" with the other four | Contextual internal links per brief Phase 2 | 2 | Proposed |
+| Solution pages, CTA | "Start Project" | "Start a project" | Same action name everywhere | 2 | Proposed |
+| AI Development intro image | (none) | Pantry app screen, alt "Pantry mobile app home screen showing Pantry Health, recipes you can make now, and a grocery list" | Shows a real AI product from the case studies | 2 | Proposed |

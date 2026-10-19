@@ -1,5 +1,20 @@
 # Changelog
 
+## Phase 2: Solutions (2026-10-19)
+
+- `/solutions` overview explains the offering as a system: the problem each solution answers, what it is, how many case studies back it (with three of them shown), the six disciplines behind all five, and the six-phase process with durations, linking to `/process`. The coral reef footage, cut from the home page, opens it.
+- One template for the five solution pages, each with its own content: hero, what we build, capabilities, how we ship, what you walk away with, every case study in that service, a call to action and links to the other four. No FAQ, because none exist yet.
+- Each solution is lit in its own colour, carried from production's per-page hues: light shafts in the hero, numbers, tags and hover states.
+- Hero objects are production's per-solution visuals rebuilt as live pieces: a browser playing Augen Pro, a feed of five phones (the middle one playing), a sponsored post, an AI prompt typing its answer, and the brand type specimen. They tilt toward the cursor with a glare that follows it.
+- Motion from 21st.dev, copied from the authors' published source (`app/vendor/21st/`): Tilt and Spotlight on the hero object, a word-by-word blur-in on page titles (TextEffect), and a soft torch of the solution's colour on capability cards (Spotlight). All still under reduced motion.
+- Page body background is now the abyss everywhere, so the strip below the footer kept for the pill is no longer cream.
+- The old `sol-` styles (about 500 lines) are removed from `globals.css`; the new ones live in `app/styles/solutions.css`.
+- Project cards (`WorkGrid`) rebuilt on the new tokens; the title link covers the card.
+
+**Verified:** build (62 pages), lint (0 errors, 1 pre-existing warning), type-check; all six routes at 375, 768 and 1440 px with no console errors and no sideways scroll; titles and descriptions match production; `npm run audit` reports no failures on any solutions page.
+
+**Known failures:** B11 (old page bodies). New and logged for Phase 7: B22.
+
 ## Services wheel on scroll, one diver shot, small menu (2026-10-16)
 
 - Home services (1024px and up): the option wheel holds still on screen while scrolling turns it, one service per 60svh of scroll. Clicking a service or the arrow keys scroll to it. The mouse wheel is no longer captured by the wheel, and drag is off (it fought the scroll). Held with CSS sticky, not a GSAP pin.

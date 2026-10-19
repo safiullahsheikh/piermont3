@@ -7,12 +7,13 @@ export type Solution = {
   metaTitle: string;
   /** One line used on the solutions index, home and 404 lists. */
   summary: string;
-  /** Hero title, one entry per line. */
-  titleLines: string[];
+  /** Hero title (h1). */
+  title: string;
+  /** The problem it answers, on the solutions overview. */
+  problem: string;
   group: Project["group"];
   metaDescription: string;
   lead: string;
-  showcase: { src: string; alt: string };
   /** Falls back to the first project's video when absent. */
   introImage?: { src: string; alt: string };
   introHeading: string;
@@ -32,12 +33,12 @@ export const SOLUTIONS: Solution[] = [
     label: "Website Development",
     metaTitle: "Website Design & Development Services",
     summary: "Fast, custom sites that turn visitors into customers.",
-    titleLines: ["WEBSITE", "DEVELOPMENT"],
+    title: "Website Development",
+    problem: "Your site looks fine but doesn’t bring in business.",
     group: "WEBSITE DESIGN",
     metaDescription:
       "Custom websites built for speed, clarity and conversion, from marketing sites to e-commerce and CMS platforms, by Piermont Studios.",
     lead: "Custom sites built to load fast, read clearly and win customers, designed to look like nobody else.",
-    showcase: { src: "/service-dev.png", alt: "Website development workspace and product UI" },
     introImage: { src: "/contact-mockup.png", alt: "Browser mockup of a polished marketing website" },
     introHeading: "Sites that look good and bring in business.",
     introText: [
@@ -74,12 +75,12 @@ export const SOLUTIONS: Solution[] = [
     label: "Social Media Design",
     metaTitle: "Social Media Design & Video Editing",
     summary: "Short form video and visuals made to stop the scroll.",
-    titleLines: ["SOCIAL MEDIA", "DESIGN"],
+    title: "Social Media Design",
+    problem: "Your posts get scrolled past.",
     group: "VIDEO EDITING",
     metaDescription:
       "Short form video, edits and motion made for Instagram, TikTok and YouTube Shorts. Social media design and video editing by Piermont Studios.",
     lead: "Scroll stopping video and visuals made for the feed, cut to hold attention from the first frame to the last.",
-    showcase: { src: "/service-design.png", alt: "Social media design and video editing workspace" },
     introHeading: "Content people watch twice.",
     introText: [
       "Feeds move fast, so every piece has a second to earn attention. We plan the hook, the pace and the payoff before anything is edited.",
@@ -115,12 +116,12 @@ export const SOLUTIONS: Solution[] = [
     label: "Ad Campaigns",
     metaTitle: "Ad Campaigns & Paid Social Creative",
     summary: "Paid creative and media planned around your numbers.",
-    titleLines: ["AD", "CAMPAIGNS"],
+    title: "Ad Campaigns",
+    problem: "Your ads get views, not customers.",
     group: "PERFORMANCE MARKETING",
     metaDescription:
       "Paid social ad films and performance marketing campaigns built to be watched to the end and turn viewers into customers, by Piermont Studios.",
     lead: "Ads people actually watch, planned around your numbers and made to bring in customers, not just views.",
-    showcase: { src: "/service-strategy.png", alt: "Ad campaign planning and performance marketing" },
     introHeading: "Ads that earn the next second.",
     introText: [
       "Nobody owes an ad their attention. We build every spot around a strong first second, a clear story and your product in frame the whole way through.",
@@ -156,12 +157,16 @@ export const SOLUTIONS: Solution[] = [
     label: "AI Development",
     metaTitle: "AI & Product Development Services",
     summary: "Useful AI features and products, built around real users.",
-    titleLines: ["AI", "DEVELOPMENT"],
+    title: "AI Development",
+    problem: "Your team repeats the same work every day.",
     group: "PRODUCT DEVELOPMENT",
     metaDescription:
       "AI features, automations and digital products designed and built around real users. AI and product development by Piermont Studios.",
     lead: "Useful AI and well built products, designed around the people who use them and shipped without the hype.",
-    showcase: { src: "/service-ai.png", alt: "AI and product development workspace" },
+    introImage: {
+      src: "/projects/pantry.png",
+      alt: "Pantry mobile app home screen showing Pantry Health, recipes you can make now, and a grocery list",
+    },
     introHeading: "Products that do the work for people.",
     introText: [
       "Good AI is often invisible. It fills in the list, suggests the next step or answers the question before someone has to ask.",
@@ -197,12 +202,12 @@ export const SOLUTIONS: Solution[] = [
     label: "Branding",
     metaTitle: "Branding & Brand Identity Design",
     summary: "Identities with one clear idea, built to work everywhere.",
-    titleLines: ["BRAND", "IDENTITY"],
+    title: "Brand Identity",
+    problem: "People can’t tell you apart from the rest.",
     group: "BRANDING",
     metaDescription:
       "Brand identity, logos, color, type and guidelines that work on every screen and surface. Branding by Piermont Studios.",
     lead: "Identities with a clear idea behind them, built to work everywhere your brand shows up.",
-    showcase: { src: "/service-brand.png", alt: "Brand identity design workspace" },
     introHeading: "A brand people remember.",
     introText: [
       "A strong brand starts with one idea people can grasp in a second. We find that idea first, then build the logo, color and type around it.",

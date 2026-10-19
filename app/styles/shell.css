@@ -85,13 +85,13 @@ a:hover > .pm-arrow {
   translate: 4px 0;
 }
 
-:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent) :focus-visible {
+:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols) :focus-visible {
   outline: var(--pm-focus-ring);
   outline-offset: var(--pm-focus-offset);
   border-radius: var(--pm-radius-sm);
 }
 
-:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent) .pm-button:focus-visible {
+:where(.pm-header, .pm-menu, .pm-footer, .pm-page, .pm-consent, .pm-sol, .pm-sols) .pm-button:focus-visible {
   border-radius: var(--pm-radius-pill);
 }
 

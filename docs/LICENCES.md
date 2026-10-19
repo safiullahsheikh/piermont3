@@ -40,6 +40,14 @@
 | Photos: pier lamps, pier at dusk, freediver | `public/media/` | Supplied by you; source pages not recorded | No (B14) |
 | Google Analytics 4 (only with your ID, only after Accept) | `app/components/Analytics.tsx` | Google Analytics terms | Yes |
 
+## Added in Phase 2
+
+| Item | Where | Licence | Verified |
+|---|---|---|---|
+| 21st.dev components: TextEffect, Tilt, Spotlight, AnimatedBackground, AnimatedGroup, InView, ScrollProgress, TransitionPanel (motion-primitives, @ibelick); Timeline, AnimatedTestimonials (aceternity, @manuarora700); NumberTicker (magicui, @dillionverma) | `app/vendor/21st/` (sources and changes in its README) | MIT, as listed on each 21st.dev component page | Yes |
+| framer-motion 12.43.0 | npm | MIT | Yes |
+| clsx 2, tailwind-merge 3 | npm (`lib/utils.ts`) | MIT | Yes |
+
 ## Planned (verified in Phase 0, added only when used)
 
 | Item | Licence | Source |
